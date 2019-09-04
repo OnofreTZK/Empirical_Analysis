@@ -1,2 +1,2 @@
-# empirical_analysis
+# Empirical Analysis
 Sorting algorithms analysis
