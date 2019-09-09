@@ -11,7 +11,7 @@ void selection( long int *first, long int *last )
     {
         menor = first;
  
-        while( selector <= last )
+        while( selector != last )
         {
             if( *selector < *menor )
             {
