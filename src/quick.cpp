@@ -17,27 +17,26 @@ long int * partition( long int *first, long int *last, long int * pivot )
             slow++;
         }
 
-        fast++; // fast always will increase.
+        fast++;
     }
 
-    if( slow != last ) //pivot stands in last and need to swap with slow.
-    {
-        std::iter_swap( slow , last - 1);
-    }
-    return slow; //returns pivot final position.
- }
+    std::iter_swap( slow, last - 1 );
+
+    return slow;
+}
 
 
 void quicksort( long int * first, long int * last )
 {
-    long int *pivot = partition( first, last, last - 1 ); 
+   long int * pivot = partition( first, last, last - 1 );
 
-     if( first == last )
-     {
-         return;
-     }
+    if( first == last )
+    {
+        return;
+    }
 
-     quicksort( first, partition( first, last, pivot ) );
-     quicksort( partition( pivot + 1, last, last - 1 ), last );
+    pivot = partition( first, last, last - 1 ); 
+    quicksort( first, partition( first, pivot, pivot - 1 ) );
+    quicksort( partition( pivot + 1, last, last - 1 ), last );
 
 }
