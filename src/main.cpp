@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
                        };
     DATA data;
 
-    execute_analysis( array[1], 0, 1000, 50, atoi(argv[1]), data );
+    execute_analysis( array[0], 0, 1000, 50, atoi(argv[1]), data );
 
     return 0;
 }
