@@ -18,6 +18,8 @@ void destroy_array( long int * array );
 // linear increment to array size.
 long int increase_array_control( long int max, long int samples, long int init_sample, int index );
 
+void simple_shuffle( long int * first, long int * last );
+
 // main function to execute everything.
 void execute_analysis( algorithms func, int algorithm_ID, long int max, long int samples, long int init_sample, DATA data );
 #endif
