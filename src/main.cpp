@@ -13,6 +13,11 @@
 
 int main(int argc, char *argv[])
 {
+    if( argc < 4 )
+    {
+      std::cout << "create a helper.cpp !!!";
+    }
+
 
     //array of sorting algorithms.
     algorithms array[8]{ quicksort,
@@ -20,7 +25,7 @@ int main(int argc, char *argv[])
                        };
     DATA data;
 
-    execute_analysis( array[0], 0, 1000, 50, atoi(argv[1]), data );
+    execute_analysis( array[0], 0, 10, 50, atoi(argv[1]), data );
 
     return 0;
 }

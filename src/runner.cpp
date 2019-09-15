@@ -71,46 +71,70 @@ void simple_shuffle( long int * first, long int * last )
 }
 //=================================================================================================
 
-void execute_analysis( algorithms func, int algorithm_ID, long int max, 
-                       long int samples, long int init_sample, DATA data )
+
+
+void type_array( long int * array ,int type, DATA data, long int max )
 {
 
-    long int * array = generate_array( max );
-
-    for( int type = 0; type < 6; type++ )
-    {
         switch( type )
         {
             case 0 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                std::random_shuffle( array, array + max );
                 break;
             case 1 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
                 simple_shuffle( array, array + max );
-                //simple function to sort in non descending
+                std::sort( array, array + max );
                 break;
             case 2 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
                 simple_shuffle( array, array + max );
-                //simple function to sort in non ascending
+                std::sort( array, array + max );
+                std::reverse( array, array + max );
                 break;
             case 3 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
                 simple_shuffle( array, array + max );
-                //simple function to sort 75%
+                std::partial_sort( array, array + (long int)( 0.75*max ), array + max );
                 break;
-            case 4 : 
+            case 4 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
                 simple_shuffle( array, array + max );
-                //simple function to sort 50%.
+                std::partial_sort( array, array + (long int)( 0.50*max ), array + max );
                 break;
             case 5 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
                 simple_shuffle( array, array + max );
-                //simple function to sort 25%.
+                std::partial_sort( array, array + (long int)( 0.25*max ), array + max );
                 break;
             default:
                 std::cout << "\nThis code break the universe!\n";
         }
-    } 
+}
+
+
+
+void execute_analysis( algorithms func, int algorithm_ID, long int max, 
+                       long int samples, long int init_sample, DATA data )
+{
+    //generate a full random array
+    long int * array = generate_array( max );
+
+    for( int type = 0; type < 6; type++ )
+    {
+        type_array( array, type, data, max);//Select the type sample to analysis.
+
+        for( int iter_samples = 0; iter_samples < samples; iter_samples++)
+        {
+            type_array( array, type, data, max );
+
+            for( int time_control = 0; time_control < 10; time_control++ )
+            {
+                type_array( array, type, data, max );
+
+                func( array, array + increase_array_control( max, samples, init_sample, iter_samples + 1 ) );
+            }
+        } 
+    }
 }

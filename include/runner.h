@@ -20,6 +20,8 @@ long int increase_array_control( long int max, long int samples, long int init_s
 
 void simple_shuffle( long int * first, long int * last );
 
+void type_array( long int * array, int type, DATA data, long int max );
+
 // main function to execute everything.
 void execute_analysis( algorithms func, int algorithm_ID, long int max, long int samples, long int init_sample, DATA data );
 #endif
