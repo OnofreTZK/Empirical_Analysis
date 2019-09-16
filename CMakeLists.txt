@@ -19,7 +19,8 @@ add_executable ( ea_driver
 	             src/main.cpp
 				 src/quick.cpp
 				 src/runner.cpp
-				 src/selection.cpp)
+				 src/selection.cpp
+         src/help.cpp)
 
 # define C++11 standard
 set_property (TARGET ea_driver PROPERTY CXX_STANDARD 11)

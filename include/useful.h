@@ -4,7 +4,11 @@
 #include <vector>
 #include <string>
 
+//pointer to function
 typedef void (*algorithms) ( long int * first, long int * last );
+
+//Help to guide user.
+void printHelp();
 
 class DATA 
 {
