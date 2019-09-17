@@ -4,24 +4,26 @@
 #include "sorting.h"
 #include "useful.h"
 
-#include <cstdlib> 
+#include <cstdlib>
 
 // using mt199337 to generate random numbers.
 long int generate_numbers( long int range );
 
 // initial form for tests.
-long int * generate_array( size_t size );
+long int * generate_array( long int max );
 
-// free alocated memory.
-void destroy_array( long int * array );
+void random_array( long int *first, long int *last, long int max );
 
-// linear increment to array size.
+// linear increment to array size(PA).
 long int increase_array_control( long int max, long int samples, long int init_sample, int index );
 
-void simple_shuffle( long int * first, long int * last );
+// random array
+void simple_shuffle( long int * first, long int * last, long int max );
 
+// type sample selection
 void type_array( long int * array, int type, DATA data, long int max );
 
+// create file for plotting script
 void create_data_file( DATA data, int algorithm_ID, int type );
 
 // main function to execute everything.

@@ -11,7 +11,7 @@
 #include <chrono>
 #include <functional>
 
-#define MAX 1000000000
+#define MAX 10000
 
 int main(int argc, char *argv[])
 {
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
         samples = atoi(argv[2]);
         algo1 = atoi(argv[3]);
 
-        std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analyses\n";
+        std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analysis\n";
 
         execute_analysis( array[algo1], algo1, MAX, samples, init_sample, data );
 
@@ -67,11 +67,11 @@ int main(int argc, char *argv[])
         algo1 = atoi(argv[3]);
         algo2 = atoi(argv[4]);
 
-        std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analyses\n";
+        std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analysis\n";
 
         execute_analysis( array[algo1], algo1, MAX, samples, init_sample, data );
 
-        std::cout << "\n>>>Starting " << data.sort_ID[algo2] << " analyses\n";
+        std::cout << "\n>>>Starting " << data.sort_ID[algo2] << " analysis\n";
 
         execute_analysis( array[algo2], algo2, MAX, samples, init_sample, data );
 
@@ -85,15 +85,15 @@ int main(int argc, char *argv[])
         algo2 = atoi(argv[4]);
         algo3 = atoi(argv[5]);
 
-        std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analyses\n";
+        std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analysis\n";
 
         execute_analysis( array[algo1], algo1, MAX, samples, init_sample, data );
 
-        std::cout << "\n>>>Starting " << data.sort_ID[algo2] << " analyses\n";
+        std::cout << "\n>>>Starting " << data.sort_ID[algo2] << " analysis\n";
 
         execute_analysis( array[algo2], algo2, MAX, samples, init_sample, data );
 
-        std::cout << "\n>>>Starting " << data.sort_ID[algo3] << " analyses\n";
+        std::cout << "\n>>>Starting " << data.sort_ID[algo3] << " analysis\n";
 
         execute_analysis( array[algo3], algo3, MAX, samples, init_sample, data );
 

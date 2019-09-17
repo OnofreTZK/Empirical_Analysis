@@ -11,34 +11,36 @@
 //================================================================================================
 long int generate_numbers( long int range )
 {
-    unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed1 = 20000000;
+
     std::mt19937 generator ( seed1 );
 
     return generator()%range;
 }
 
 
-long int * generate_array( size_t size )
+long int * generate_array( long int max )
 {
-    long int * array = new long int [size];
+    long int * array = new long int [max];
 
-    for ( int i = 0; i < size; i++ )
+    for ( int i = 0; i < max; i++ )
     {
-        array[i] = generate_numbers(size); 
+        array[i] = generate_numbers(max); 
     }
 
     return array;
 }
-//=================================================================================================
 
 
 
-//=================================================================================================
-// Free memory
-//=================================================================================================
-void destroy_array( long int * array )
+void random_array( long int * first, long int * last, long int max)
 {
-    delete[] array;
+    while( first != last )
+    {
+        *first = generate_numbers( max );
+
+        first++;
+    }
 }
 //=================================================================================================
 
@@ -61,18 +63,6 @@ long int increase_array_control( long int max, long int samples, long int init_s
 
 
 //=================================================================================================
-//Function to shuffle
-//=================================================================================================
-void simple_shuffle( long int * first, long int * last )
-{
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
-    std::shuffle( first, last, std::default_random_engine(seed) );
-}
-//=================================================================================================
-
-
-//=================================================================================================
 //Function to select the type of array.
 //=================================================================================================
 void type_array( long int * array ,int type, DATA data, long int max )
@@ -82,36 +72,37 @@ void type_array( long int * array ,int type, DATA data, long int max )
         {
             case 0 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                std::random_shuffle( array, array + max );
+                random_array( array, array + max, max );
                 break;
             case 1 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                simple_shuffle( array, array + max );
+                random_array( array, array + max, max );
                 std::sort( array, array + max );
                 break;
             case 2 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                simple_shuffle( array, array + max );
+                random_array( array, array + max, max );
                 std::sort( array, array + max );
                 std::reverse( array, array + max );
                 break;
             case 3 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                simple_shuffle( array, array + max );
+                random_array( array, array + max, max );
                 std::partial_sort( array, array + (long int)( 0.75*max ), array + max );
                 break;
             case 4 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                simple_shuffle( array, array + max );
+                random_array( array, array + max, max );
                 std::partial_sort( array, array + (long int)( 0.50*max ), array + max );
                 break;
             case 5 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                simple_shuffle( array, array + max );
+                random_array( array, array + max, max );
                 std::partial_sort( array, array + (long int)( 0.25*max ), array + max );
                 break;
             default:
-                std::cout << "\nThis code break the universe!\n";
+                std::cout << "\nHow?\n";
+                break;
         }
 }
 //================================================================================================
@@ -144,11 +135,10 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
 
     for( int type = 0; type < 6; type++ )
     {
-        //type_array( array, type, data, max);//Select the type sample to analysis.
 
         for( int iter_samples = 0; iter_samples < samples; iter_samples++)
         {
-            type_array( array, type, data, max );
+            //type_array( array, type, data, max );
 
             arithmetic_mean = 0.0;
 
@@ -180,5 +170,5 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
 
     }
 
-    destroy_array( array);
+    delete[] array;
 }
