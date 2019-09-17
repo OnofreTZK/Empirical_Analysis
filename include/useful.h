@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
 //pointer to function
 typedef void (*algorithms) ( long int * first, long int * last );
@@ -13,17 +14,20 @@ void printHelp();
 class DATA 
 {
     private:
-      std::vector< long int > time_data;
+      std::vector< double > time_data;
       std::vector< long int > samples_size;
 
     public:
 
-      std::vector< std::string > typesample{ "Full random array",
-                                             "Array in non-descending order",
-                                             "Array in non-ascending order",
-                                             "75/100 sorted array",
-                                             "50/100 sorted array",
-                                             "25/100 sorted array" };
+      std::vector< std::string > sort_ID{ "quick sort",
+                                          "selection sort" };
+
+      std::vector< std::string > typesample{ "Full random",
+                                             "non-descending order",
+                                             "non-ascending order",
+                                             "sorted: 75%",
+                                             "sorted: 50%",
+                                             "sorted: 25%" };
 
 
 
@@ -33,10 +37,18 @@ class DATA
           samples_size.resize( samples );
       };
 
-      void set_values( long int sample, long int time, int index )
+      void set_values( long int sample, double timer, int index )
       {
-          time_data[index] = time;
+          time_data[index] = timer;
           samples_size[index] = sample;
+      }
+
+      void get_data( std::ofstream * file )
+      {
+          for( int i = 0; i < time_data.size(); i++ )
+          {
+              *file << samples_size[i] << " " << time_data[i] << "\n";
+          }
       }
 
 

@@ -22,6 +22,8 @@ void simple_shuffle( long int * first, long int * last );
 
 void type_array( long int * array, int type, DATA data, long int max );
 
+void create_data_file( DATA data, int algorithm_ID, int type );
+
 // main function to execute everything.
 void execute_analysis( algorithms func, int algorithm_ID, long int max, long int samples, long int init_sample, DATA data );
 #endif

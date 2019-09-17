@@ -53,7 +53,7 @@ long int increase_array_control( long int max, long int samples, long int init_s
     //calculating the 'r' of aritmetic progressiom formula.
     long int reason = ( max - init_sample )/ samples;
 
-    return init_sample + ( index - 1 ) * reason;
+    return init_sample + (( index - 1 ) * reason);
 
 }
 //=================================================================================================
@@ -72,7 +72,9 @@ void simple_shuffle( long int * first, long int * last )
 //=================================================================================================
 
 
-
+//=================================================================================================
+//Function to select the type of array.
+//=================================================================================================
 void type_array( long int * array ,int type, DATA data, long int max )
 {
 
@@ -112,6 +114,18 @@ void type_array( long int * array ,int type, DATA data, long int max )
                 std::cout << "\nThis code break the universe!\n";
         }
 }
+//================================================================================================
+
+
+
+void create_data_file( DATA data, int algorithm_ID, int type )
+{
+    std::ofstream file ("../data/"+data.sort_ID[algorithm_ID]+"_"+data.typesample[type]+".txt");
+
+    data.get_data( &file );
+
+    file.close();
+}
 
 
 
@@ -121,20 +135,50 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
     //generate a full random array
     long int * array = generate_array( max );
 
+    // Time Manipulation
+    //=========================================================
+    double arithmetic_mean;// necessary to progressive mean
+    //=========================================================
+
+    data.alocate_vectors( samples );
+
     for( int type = 0; type < 6; type++ )
     {
-        type_array( array, type, data, max);//Select the type sample to analysis.
+        //type_array( array, type, data, max);//Select the type sample to analysis.
 
         for( int iter_samples = 0; iter_samples < samples; iter_samples++)
         {
             type_array( array, type, data, max );
 
+            arithmetic_mean = 0.0;
+
             for( int time_control = 0; time_control < 10; time_control++ )
             {
                 type_array( array, type, data, max );
 
+                // -- TIMER STARTS HERE --
+                std::chrono::steady_clock::time_point START = std::chrono::steady_clock::now();
                 func( array, array + increase_array_control( max, samples, init_sample, iter_samples + 1 ) );
+                std::chrono::steady_clock::time_point STOP = std::chrono::steady_clock::now();
+                // -- TIMER STOPS HERE --
+
+                auto timer = (STOP - START);
+
+                //calculating progressive mean.
+                arithmetic_mean = arithmetic_mean + ( ( std::chrono::duration< double, std::milli > (timer).count() - arithmetic_mean )/(time_control+1) );
+
             }
-        } 
+            //get the sample size to put in data.
+            long int sample = std::distance( array, array + increase_array_control( max, samples, init_sample, iter_samples + 1 ) );
+
+            //setting values in data.
+            data.set_values( sample, arithmetic_mean, iter_samples );
+        }
+
+        //create file.
+        create_data_file( data, algorithm_ID, type );
+
     }
+
+    destroy_array( array);
 }
