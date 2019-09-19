@@ -53,6 +53,8 @@ int main(int argc, char *argv[])
 
         execute_analysis( array[algo1], algo1, MAX, samples, init_sample, data );
 
+        //printer( MAX );
+
         return EXIT_SUCCESS;
     }
     else if( argc == 6 )

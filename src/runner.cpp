@@ -7,17 +7,19 @@
 #include <array>
 
 //=================================================================================================
-//Generating a array with full random numbers
-//================================================================================================
+//Generating array
+//=================================================================================================
 long int generate_numbers( long int range )
 { 
-        auto seed = 12345678;
+      //auto seed = 12345678;
 
-        std::mt19937 generator( seed );
+      std::random_device seed;
 
-        std::uniform_int_distribution<long int> distr(0, range);
+      std::mt19937_64 gen( seed() );
 
-        return distr( generator );
+      std::uniform_int_distribution<long int> distr(0, range);
+
+      return distr( gen );
 }
 
 
@@ -32,9 +34,13 @@ long int * generate_array( long int max )
 
     return array;
 }
+//================================================================================================
 
 
 
+//================================================================================================
+// Fake shuffle
+//================================================================================================
 void random_array( long int * first, long int * last, long int max)
 {
     while( first != last )
@@ -42,6 +48,64 @@ void random_array( long int * first, long int * last, long int max)
         *first = generate_numbers( max );
 
         first++;
+    }
+}
+//================================================================================================
+
+
+
+//================================================================================================
+// "Special" sorts
+//================================================================================================
+void descending_sorting( long int * first, long int * last )
+{
+    long int iterator = std::distance( first, last );
+
+    while ( last != first )
+    {
+        *first = iterator;
+
+        iterator--;
+        first++;
+    }
+}
+
+
+
+void ascending_sorting( long int * first, long int * last )
+{
+    long int iterator = 0;
+
+    while( first != last )
+    {
+        *first = iterator + 1;
+
+        iterator++;
+        first++;
+    }
+}
+
+
+
+void partial_sorting( long int * first, long int * last, int partial )
+{ 
+
+    double percent = (double) partial/100;
+
+    double distance = (double) std::distance( first, last ) * percent;
+
+    long int * unsort = first + (int) distance;
+
+    int count = 0;
+    while( count < distance )
+    {
+
+        std::iter_swap( first, unsort );
+
+        first++;
+        unsort--;
+
+        count++;
     }
 }
 //=================================================================================================
@@ -78,29 +142,26 @@ void type_array( long int * array ,int type, DATA data, long int max )
                 break;
             case 1 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                random_array( array, array + max, max );
-                std::sort( array, array + max );
+                ascending_sorting( array, array + max );
                 break;
             case 2 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                random_array( array, array + max, max );
-                std::sort( array, array + max );
-                std::reverse( array, array + max );
+                descending_sorting( array, array + max );
                 break;
             case 3 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                random_array( array, array + max, max );
-                std::partial_sort( array, array + (long int)( 0.75*max ), array + max );
+                ascending_sorting( array, array + max );
+                partial_sorting( array, array + max, 25 );
                 break;
             case 4 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                random_array( array, array + max, max );
-                std::partial_sort( array, array + (long int)( 0.50*max ), array + max );
+                ascending_sorting( array, array + max );
+                partial_sorting( array, array + max, 50);
                 break;
             case 5 :
                 std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
-                random_array( array, array + max, max );
-                std::partial_sort( array, array + (long int)( 0.25*max ), array + max );
+                ascending_sorting( array, array + max );
+                partial_sorting( array, array + max, 75 );
                 break;
             default:
                 std::cout << "\nHow?\n";
@@ -110,7 +171,9 @@ void type_array( long int * array ,int type, DATA data, long int max )
 //================================================================================================
 
 
-
+//================================================================================================
+// Create file with samples size and time measures.
+//================================================================================================
 void create_data_file( DATA data, int algorithm_ID, int type )
 {
     std::ofstream file ("../data/"+data.sort_ID[algorithm_ID]+"_"+data.typesample[type]+".txt");
@@ -118,6 +181,31 @@ void create_data_file( DATA data, int algorithm_ID, int type )
     data.get_data( &file );
 
     file.close();
+}
+//================================================================================================
+
+
+
+void print4test( long int * first, long int * last )
+{
+
+    std::cout << "\n[ ";
+    while( first != last )
+    {
+        std::cout << *first << ", ";
+
+        first++;
+    }
+    std::cout << "]\n";
+}
+
+
+
+void printer( long int max )
+{
+    long int * arraytest = generate_array( max );
+
+    delete[] arraytest;
 }
 
 

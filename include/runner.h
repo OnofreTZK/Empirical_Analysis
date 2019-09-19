@@ -12,10 +12,24 @@ long int generate_numbers( long int range );
 // initial form for tests.
 long int * generate_array( long int max );
 
+// "shuffling"
 void random_array( long int *first, long int *last, long int max );
+
+// descending sort
+void descending_sorting( long int * first, long int * last );
+
+// ascending sort
+void ascending_sorting( long int * first, long int * last );
+
+// partial sorting
+void partial_sorting( long int * first, long int * last, int partial );
 
 // linear increment to array size(PA).
 long int increase_array_control( long int max, long int samples, long int init_sample, int index );
+
+void print4test( long int * first, long int * last );
+
+void printer( long int max );
 
 // random array
 void simple_shuffle( long int * first, long int * last, long int max );
