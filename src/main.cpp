@@ -11,11 +11,9 @@
 #include <chrono>
 #include <functional>
 
-#define MAX 100000
-
 int main(int argc, char *argv[])
 {
-    long int init_sample, samples;
+    long int MAX, init_sample, samples;
 
     int algo1, algo2, algo3; // keep the code to sorting algorithms selected.
 
@@ -26,33 +24,30 @@ int main(int argc, char *argv[])
                          selection
                        };
 
-    //identify the name of algorithm.
-    //std::vector< std::string > sort_ID{ "quick sort", "selection sort" };
-
-
-    if( argc < 4 ) //verify minimal
+    if( argc < 5 ) //verify minimal
     {
         std::cout << "\nToo few arguments!\n";
         printHelp();
         return EXIT_FAILURE;
     }
-    else if( argc > 6 ) //verify max
+    else if( argc > 7 ) //verify max
     {
         std::cout << "\nToo many arguments! Please, choose only <3> sorting algorithms to analyse!\n";
         printHelp();
         return EXIT_FAILURE;
     }
-    else if( atoi(argv[2]) < 25 or atoi(argv[2]) > 100 ) //verify samples range.
+    else if( atoi(argv[3]) < 25 or atoi(argv[3]) > 100 ) //verify samples range.
     {
         std::cout << "\nNumber of samples is out of range!\n";
         printHelp();
         return EXIT_FAILURE;
     }
-    else if( argc == 4 )
+    else if( argc == 5 )
     {
-        init_sample = atoi(argv[1]);
-        samples = atoi(argv[2]);
-        algo1 = atoi(argv[3]);
+        MAX = atoi(argv[1]);
+        init_sample = atoi(argv[2]);
+        samples = atoi(argv[3]);
+        algo1 = atoi(argv[4]);
 
         std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analysis\n";
 
@@ -60,12 +55,13 @@ int main(int argc, char *argv[])
 
         return EXIT_SUCCESS;
     }
-    else if( argc == 5 )
+    else if( argc == 6 )
     {
-        init_sample = atoi(argv[1]);
-        samples = atoi(argv[2]);
-        algo1 = atoi(argv[3]);
-        algo2 = atoi(argv[4]);
+        MAX = atoi(argv[1]);
+        init_sample = atoi(argv[2]);
+        samples = atoi(argv[3]);
+        algo1 = atoi(argv[4]);
+        algo2 = atoi(argv[5]);
 
         std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analysis\n";
 
@@ -77,13 +73,14 @@ int main(int argc, char *argv[])
 
         return EXIT_SUCCESS;
     }
-    else if( argc == 6 )
+    else if( argc == 7 )
     {
-        init_sample = atoi(argv[1]);
-        samples = atoi(argv[2]);
-        algo1 = atoi(argv[3]);
-        algo2 = atoi(argv[4]);
-        algo3 = atoi(argv[5]);
+        MAX = atoi(argv[1]);
+        init_sample = atoi(argv[2]);
+        samples = atoi(argv[3]);
+        algo1 = atoi(argv[4]);
+        algo2 = atoi(argv[5]);
+        algo3 = atoi(argv[6]);
 
         std::cout << "\n>>>Starting " << data.sort_ID[algo1] << " analysis\n";
 

@@ -45,7 +45,7 @@ class DATA
 
       void get_data( std::ofstream * file )
       {
-          for( int i = 0; i < time_data.size(); i++ )
+          for( size_t i = 0; i < time_data.size(); i++ )
           {
               *file << samples_size[i] << " " << time_data[i] << "\n";
           }

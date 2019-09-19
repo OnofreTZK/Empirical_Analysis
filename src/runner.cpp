@@ -10,12 +10,14 @@
 //Generating a array with full random numbers
 //================================================================================================
 long int generate_numbers( long int range )
-{
-    unsigned seed1 = 20000000;
+{ 
+        auto seed = 12345678;
 
-    std::mt19937 generator ( seed1 );
+        std::mt19937 generator( seed );
 
-    return generator()%range;
+        std::uniform_int_distribution<long int> distr(0, range);
+
+        return distr( generator );
 }
 
 
