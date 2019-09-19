@@ -159,7 +159,7 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
 
             }
             //get the sample size to put in data.
-            long int sample = std::distance( array, array + increase_array_control( max, samples, init_sample, iter_samples + 1 ) );
+            long int sample = increase_array_control( max, samples, init_sample, iter_samples + 1 );
 
             //setting values in data.
             data.set_values( sample, arithmetic_mean, iter_samples );

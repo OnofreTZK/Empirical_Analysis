@@ -11,7 +11,7 @@
 #include <chrono>
 #include <functional>
 
-#define MAX 10000
+#define MAX 100000
 
 int main(int argc, char *argv[])
 {
