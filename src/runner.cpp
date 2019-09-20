@@ -205,6 +205,12 @@ void printer( long int max )
 {
     long int * arraytest = generate_array( max );
 
+    print4test( arraytest, arraytest + max );
+
+    bubble( arraytest, arraytest + max );
+
+    print4test( arraytest, arraytest + max );
+
     delete[] arraytest;
 }
 

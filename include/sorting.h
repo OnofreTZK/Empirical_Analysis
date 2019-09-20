@@ -5,6 +5,10 @@ long int * partition( long int *first, long int *last, long int * pivot );
 
 void quicksort( long int * first, long int * last );
 
-void selection( long int *first , long int *last );
+void selection( long int * first , long int * last );
+
+void insertion( long int * first, long int * last );
+
+void bubble( long int * first, long int * last );
 
 #endif

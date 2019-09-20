@@ -21,8 +21,9 @@ int main(int argc, char *argv[])
 
     //array of sorting algorithms.
     algorithms array[8]{ quicksort,
-                         selection
-                       };
+                         selection,
+                         insertion,
+                         bubble };
 
     if( argc < 5 ) //verify minimal
     {

@@ -20,7 +20,9 @@ class DATA
     public:
 
       std::vector< std::string > sort_ID{ "quick sort",
-                                          "selection sort" };
+                                          "selection sort",
+                                          "insertion sort",
+                                          "bubble sort" };
 
       std::vector< std::string > typesample{ "Full random",
                                              "non-descending order",
