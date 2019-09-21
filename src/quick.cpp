@@ -11,7 +11,7 @@ long int * partition( long int *first, long int *last, long int * pivot )
 
     while( fast < last )
     {
-        if(  *fast < *pivot  )
+        if(  *fast < *(last-1)  )
         {
             std::iter_swap( slow, fast );
             slow++;
@@ -28,15 +28,14 @@ long int * partition( long int *first, long int *last, long int * pivot )
 
 void quicksort( long int * first, long int * last )
 {
-   long int * pivot = partition( first, last, last - 1 );
 
     if( first == last )
     {
         return;
     }
 
-    pivot = partition( first, last, last - 1 ); 
-    quicksort( first, partition( first, pivot, pivot - 1 ) );
-    quicksort( partition( pivot + 1, last, last - 1 ), last );
+    long int * pivot = partition( first, last, last - 1 );
+    quicksort( first, pivot/* partition( first, pivot, pivot - 1 ) */);
+    quicksort( /*partition( pivot + 1, last, last - 1 )*/pivot + 1, last );
 
 }

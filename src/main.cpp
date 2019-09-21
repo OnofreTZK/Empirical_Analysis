@@ -23,7 +23,9 @@ int main(int argc, char *argv[])
     algorithms array[8]{ quicksort,
                          selection,
                          insertion,
-                         bubble };
+                         bubble,
+                         radix,
+                         shell };
 
     if( argc < 5 ) //verify minimal
     {

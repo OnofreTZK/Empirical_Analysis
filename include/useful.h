@@ -22,7 +22,9 @@ class DATA
       std::vector< std::string > sort_ID{ "quick sort",
                                           "selection sort",
                                           "insertion sort",
-                                          "bubble sort" };
+                                          "bubble sort",
+                                          "radix sort",
+                                          "shell sort" };
 
       std::vector< std::string > typesample{ "Full random",
                                              "non-descending order",
