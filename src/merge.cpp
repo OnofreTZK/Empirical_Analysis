@@ -100,20 +100,20 @@ void mergesort( long int * first, long int * last )
     if( first < last )
     {
 
-        int half_size = std::distance( first, last)/2;
         //std::cout << "\n half size = " << half_size << "\n";
-        long int * half = first + half_size;
-        long int * newfirst = new long int [half_size];
-        long int * newfirst2 = new long int[half_size];
+        long int * half = first + std::distance( first, last )/2;
+        long int * newfirst = new long int [std::distance( first, half )];
+        long int * newfirst2 = new long int[std::distance( half, last )];
 
-        copyiterator( newfirst, newfirst + half_size, first );
-        copyiterator( newfirst2, newfirst2 + half_size, half );
+        copyiterator( newfirst, newfirst + std::distance( first, half ), first );
+        copyiterator( newfirst2, newfirst2 + std::distance( half, last ), half );
 
-        mergesort( first, half );
-        mergesort( half + 1, last );
-
-        merge( newfirst, newfirst + half_size,
-               newfirst2 , newfirst2 + half_size,
+        std::cout << "aqui meu compadre\n";
+        mergesort( newfirst, newfirst + std::distance( first, half ) );
+        mergesort( newfirst2, newfirst2 + std::distance( half, last ) );
+        std::cout << "aqui meu compadre\n";
+        merge( newfirst, newfirst + ( std::distance( first, half ) ),
+               newfirst2 , newfirst2 + std::distance( half, last ),
                first );
 
         delete[] newfirst;
