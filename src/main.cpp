@@ -25,7 +25,8 @@ int main(int argc, char *argv[])
                          insertion,
                          bubble,
                          radix,
-                         shell };
+                         shell,
+                         variable };
 
     if( argc < 5 ) //verify minimal
     {

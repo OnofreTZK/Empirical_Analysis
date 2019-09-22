@@ -24,7 +24,8 @@ class DATA
                                           "insertion sort",
                                           "bubble sort",
                                           "radix sort",
-                                          "shell sort" };
+                                          "shell sort"
+                                          "quick + insertion };
 
       std::vector< std::string > typesample{ "Full random",
                                              "non-descending order",
