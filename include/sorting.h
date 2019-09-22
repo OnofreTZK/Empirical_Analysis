@@ -17,15 +17,15 @@ void countingSort( long int * first, long int * last );
 
 void radix( long int * first, long int * last );
 
-void merge( long int * l_first, long int * l_last,
-            long int * r_first, long int * r_last,
-            long int * a_first );
+void merge( long int * first, long int * last, long int * half);
 
 void copyiterator( long int * newfirst, long int * newlast,
-                   long int * first );
+                   long int * first, long int * last );
 
 void mergesort( long int * first, long int * last );
 
 void shell( long int * first, long int * last );
+
+void variable( long int * first, long int * last );
 
 #endif

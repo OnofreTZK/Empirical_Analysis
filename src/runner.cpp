@@ -207,7 +207,7 @@ void printer( long int max )
 
     print4test( arraytest, arraytest + max );
 
-    mergesort( arraytest, arraytest + max );
+    variable( arraytest, arraytest + max );
 
     print4test( arraytest, arraytest + max );
 

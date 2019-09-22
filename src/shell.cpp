@@ -9,7 +9,7 @@ void shell( long int * first, long int * last )
 
     long int * array_aux = new long int[size];
 
-    copyiterator( array_aux, array_aux + size, first );
+    copyiterator( array_aux, array_aux + size, first, last );
 
     for( int gap = size/2; gap > 0; gap /= 2 )
     {
@@ -30,5 +30,5 @@ void shell( long int * first, long int * last )
 
     }
 
-    copyiterator( first, last, array_aux );
+    copyiterator( first, last, array_aux, array_aux + size );
 }

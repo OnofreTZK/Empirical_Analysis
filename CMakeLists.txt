@@ -25,7 +25,8 @@ add_executable ( ea_driver
          src/bubble.cpp
          src/radix.cpp
          src/merge.cpp
-         src/shell.cpp)
+         src/shell.cpp
+         src/variable.cpp)
 
 # define C++11 standard
 set_property (TARGET ea_driver PROPERTY CXX_STANDARD 11)

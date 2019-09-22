@@ -4,120 +4,120 @@
 #include <iterator>
 #include <cstdlib>
 
-void merge( long int *l_first, long int * l_last, // [l_first; l_last)
-            long int *r_first, long int * r_last, // [r_first; r_last)
-            long int *a_first )
+void copyiterator( long int * newfirst, long int * newlast, long int * first, long int * last )
 {
 
-   long int * a_last = a_first + ( std::distance( l_first, l_last ) ) + ( std::distance( r_first, r_last ) );
-
-    if( ( l_first == l_last ) and ( r_first == r_last ) )
+    while( first != last  )
     {
-        return;
-    }
-    else if( l_first == l_last )
-    {
-        while( r_first != r_last )
-        {
-            *a_first = *r_first;
-            a_first++;
-            r_first++;
-        }
-    }
-    else if( r_first == r_last )
-    { 
-        while( l_first != l_last )
-        {
-            *a_first = *l_first;
-            a_first++;
-            l_first++;
-        }
-    }
-
-    while( a_first != a_last )
-    {
-        if( r_first == r_last )
-        { 
-             *a_first = *l_first;
-             a_first++;
-             l_first++;
-        }
-        else if( l_first == l_last )
-        {
-            *a_first = *r_first;
-            a_first++;
-            r_first++;
-        }
-        else if(  *l_first < *r_first  )
-        {
-            *a_first = *l_first;
-            l_first++;
-            a_first++;
-        }
-        else if(  *r_first < *l_first  )
-        {
-            *a_first = *r_first;
-            r_first++;
-            a_first++;
-        }
-        else if( *l_first == *r_first )
-        {
-            *a_first = *l_first;
-            a_first++;
-            l_first++;
-            *a_first = *r_first;
-            a_first++;
-            r_first++;
-        }
-     }
-}
-
-
-
-void copyiterator( long int * newfirst, long int * newlast, long int * first )
-{
-
-    while( newfirst < newlast )
-    {
-        //std::cout << "\n first = "<< *first << "\n"; 
         *newfirst = *first;
-        std::cout << *newfirst << ", ";
+        //std::cout << *newfirst << ", ";
 
         newfirst++;
 
         first++;
     }
 
-    std::cout << std::endl;
-
 }
 
 
 
-void mergesort( long int * first, long int * last )
+void merge( long int * first, long int * last, long int * half )
 {
+    int size1 = std::distance( first, half );
+    int size2 = std::distance( half, last );
 
-    if( first < last )
+    long int subArray1[size1];
+    long int subArray2[size2];
+    long int mergedArray[std::distance(first, last)];
+
+
+    copyiterator( subArray1, subArray1 + size1, first, half);
+    copyiterator( subArray2, subArray2 + size2, half, last);
+
+    int index1 = 0; // subArray1 index.
+    int index2 = 0; // subArray2 index.
+    int mergedindex = 0; // final array index
+
+    while( mergedindex < std::distance( first, last ) )
     {
-
-        //std::cout << "\n half size = " << half_size << "\n";
-        long int * half = first + std::distance( first, last )/2;
-        long int * newfirst = new long int [std::distance( first, half )];
-        long int * newfirst2 = new long int[std::distance( half, last )];
-
-        copyiterator( newfirst, newfirst + std::distance( first, half ), first );
-        copyiterator( newfirst2, newfirst2 + std::distance( half, last ), half );
-
-        std::cout << "aqui meu compadre\n";
-        mergesort( newfirst, newfirst + std::distance( first, half ) );
-        mergesort( newfirst2, newfirst2 + std::distance( half, last ) );
-        std::cout << "aqui meu compadre\n";
-        merge( newfirst, newfirst + ( std::distance( first, half ) ),
-               newfirst2 , newfirst2 + std::distance( half, last ),
-               first );
-
-        delete[] newfirst;
-        delete[] newfirst2;
+        if( size1 == 0 and size2 == 0 )
+        {
+            return;
+        }
+        else if( size1 == 0 )
+        {
+            while( index2 < size2 )
+            {
+                mergedArray[mergedindex] = subArray2[index2];
+                mergedindex++;
+                index2++;
+            }
+        }
+        else if( size2 == 0 )
+        {
+            while( index1 < size1 )
+            {
+                mergedArray[mergedindex] = subArray1[index1];
+                mergedindex++;
+                index1++;
+            }
+        }
+        else if( subArray1[index1] < subArray2[index2] )
+        {
+            mergedArray[mergedindex] = subArray1[index1];
+            index1++;
+            mergedindex++;
+        }
+        else if( subArray1[index1] > subArray2[index2] )
+        {
+            mergedArray[mergedindex] = subArray2[index2];
+            index2++;
+            mergedindex++;
+        }
+        else if( subArray1[index1] == subArray2[index2] )
+        {
+            mergedArray[mergedindex] = subArray1[index1];
+            index1++;
+            mergedindex++; 
+            mergedArray[mergedindex] = subArray2[index2];
+            index2++;
+            mergedindex++;
+        }
+        else if( index1 == size1 )
+        {
+            while( index2 < size2 )
+            {
+                mergedArray[mergedindex] = subArray2[index2];
+                mergedindex++;
+                index2++;
+            }
+        }
+        else if( index2 == size2 )
+        {
+            while( index1 < size1 )
+            {
+                mergedArray[mergedindex] = subArray1[index1];
+                mergedindex++;
+                index1++;
+            }
+        }
     }
 
+    copyiterator( first, last, mergedArray, mergedArray + std::distance( first, last ) );
+}
+
+
+void mergesort( long int * first, long int * last )
+{
+    if( first == last )
+    {
+        return;
+    }
+
+    long int * half = first + std::distance( first, last )/2;
+
+    mergesort( first, half );
+    mergesort( half + 1, last );
+
+    merge( first, last, half );
 }
