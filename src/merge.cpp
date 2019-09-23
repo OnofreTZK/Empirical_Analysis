@@ -23,8 +23,8 @@ void copyiterator( long int * newfirst, long int * newlast, long int * first, lo
 
 void merge( long int * first, long int * last, long int * half, long int &count )
 {
-    int size1 = std::distance( first, half );
-    int size2 = std::distance( half, last );
+    int size1 = std::distance( first, half ) + 1;
+    int size2 = std::distance( half + 1, last );
 
     long int subArray1[size1];
     long int subArray2[size2];

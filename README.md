@@ -33,6 +33,8 @@
   	+  **_Radix Sort_**
   	+  _**Quick + Insertion**_
 * **Resultados**
+  * **Considerações Gerais**
+  * **Cenários Apropriados**
 
 ## Introdução 
 
@@ -761,6 +763,8 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 
 * Ordena as chaves em qualquer ordem relacionada com a lexicografia
 
+* Complexidade : $O(w * n)$  onde é o número de bits para guardar na chave.
+
 * Radix sort é um algoritmo que ordena inteiros processando dígitos individuais.  __Como os inteiros podem representar strings compostas de caracteres (como nomes ou datas) e pontos flutuantes especialmente formatados, radix sort não é limitado somente a inteiros.__
 
 * A versão implementada neste projeto é a LSD - ( Least significant digit ).
@@ -1002,3 +1006,72 @@ A eficiência do radix independe do cenário e do tamanho da amostra, visto que 
 
 ## Resultados
 
+
+
+### Considerações gerais
+
+As primeira constatação foi perceber uma relação entre a facilidade de implementação e a eficiência do algoritmo:
+
+Fácil implementação e pouca eficiência em grandes amostras não ordenadas:
+
++  Bubble Sort
++ Insertion Sort
++ Selection Sort
+
+Implementação complexa e boa eficiência em grandes amostras não ordenadas:
+
+* Radix Sort
+* Shell Sort
+
+Isso pode ser levando em consideração para "desbancar" o uso do radix em qualquer cenário, pois mesmo  pelo seu excelente desempenho, sua dificuldade até mesmo para entender o funcionamento faz com que optar por outro mais simples( merge, quick) seja a melhor escolha.
+
+Pela observação dos gráficos o uso de alguns algoritmos de alto desempenho depende completamente do cenário em que ele será aplicado, como o quick sort que em um arranjo que apresente ordem parcial terá aumento considerável no tempo de execução.
+
+
+
+### Cenários apropriados
+
++ Quick Sort e Quick + Insertion combo
+
+  ​	Eficiente em arranjos sem ordem total.
+
+  
+
++ Insertion Sort
+
+  ​	Deve ter seu uso evitado quando sozinho em amostras muito grandes e sem ordem total, seu melhor desempenho é em vetores parcialmente ordenados.
+
+  
+
++ Selection Sort e Bubble Sort
+
+    Pouca eficiência mesmo quando utilizados em arranjos com ordem parcial. Apresentaram os piores tempo de execução no geral.
+
+  
+
++ Shell Sort
+
+  Extremamente eficiente em um vetor sem ordem total e apesar da queda de desempenho em arranjos com ordem parcial, pode ser utilizado em diversos cenários.
+
+  
+
++ Radix Sort
+
+  Excelente em **qualquer** cenário.
+
+  
+
+### Quick Sort vs Merge Sort
+
+1. **Memória**: O merge sort faz uso de memória extra, já o quicksort requer pouco espaço. O quick sort é um algoritmo de ordenação  interna, isto é, não é necessário espaço de armazenamento adicional para ordenar. o merge sort requer uma alocação temporária para juntar as divisões ordenadas, entregando a vantagem para o quick sort no quesito memória.
+2. **Pior caso**: O pior caso do quicksort é evitável usando o quicksort aleatório ou escolhendo o pivô certo. Indo além e buscando uma ocorrência de caso médio melhora o desempenho e se torna tão eficiente quanto o merge sort.
+3. **Estabilidade**: O merge sort tem estabilidade nas trocas, o quick sort não.
+4. **Conclusão**: Se o(a) programador(a) tiver a capacidade de otimizar para automatizar a busca pelo caso médio o quick sort é mais recomendável que o merge.
+
+
+
+
+
+### Medições
+
+O método utilizado para executar as análises impossibilitou o uso de amostras grandiosas
