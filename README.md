@@ -9,6 +9,12 @@
   + **Compilação e execução**
 
 + **Análise**
+  + **Processando as linhas de comando**
+  + **Funções Principais** 
+    + `generate_array`
+    + `increase_array_control`
+    + **Cálculo da média aritmética progressiva**
+    + `type_array `
 
 ## Introdução 
 
@@ -43,7 +49,6 @@ Para baixar o código na sua máquina:
 
 ```bash
 $ git clone https://github.com/OnofreTZK/Empirical_Analysis.git
-
 ```
 
 Para compilar:
@@ -95,7 +100,11 @@ $ ./ea_drive 10000 5000 50 0 1 2
 
 ## Análise
 
-Após a leitura e o processamento de argumentos, todas os dados são passadas para a função principal `execute_analysis` :
+
+
+### Processando as linhas de comando
+
+Após a leitura e o processamento de argumentos, todos os dados são passadas para a função principal `execute_analysis` :
 
 ```c++
   // Exemplo de uma execução com 3 algoritmos.       
@@ -172,4 +181,183 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
     delete[] array; // libera a memória.
 }
 ```
+
+
+
+### Funções principais
+
+* **`generate_array`**
+
+```c++ 
+//=======================================================================================
+// aloca e preenche o vetor com números em um intervalo de [0, <array_max_size>) 
+//=======================================================================================
+long int generate_numbers( long int range )
+{
+      std::random_device seed;
+
+      std::mt19937_64 gen( seed() );
+      // aleatoriedade com probabilidade linear.
+      std::uniform_int_distribution<long int> distr(0, range); 
+
+      return distr( gen );
+}
+
+
+long int * generate_array( long int max )
+{
+  	// alocação utilizando a entrada do usuário.
+    long int * array = new long int [max];
+
+    for ( int i = 0; i < max; i++ )
+    {
+        array[i] = generate_numbers(max); 
+    }
+
+    return array;
+}
+//====================================================================================
+```
+
++ **`increase_array_control`**
+
+```c++
+//====================================================================================
+// Crescimento linear das amostras utilizando P.A. ( <init_sample>, <array_max_size> )
+//====================================================================================
+long int increase_array_control( long int max, long int samples, long int init_sample, int index )
+{
+    //calculando o 'r'( razão) progressão aritmética.
+    long int reason = ( max - init_sample )/ samples;
+
+    return init_sample + (( index - 1 ) * reason);
+
+}
+//====================================================================================
+```
+
+Fórmula :
+
+​                    $amostra_{n}$ = $amostra_{1}$ $+$ $(n -1)reason$ 
+
+
+
++ **Cálculo da média aritmética progressiva**
+
+```c++
+arithmetic_mean = arithmetic_mean + ( ( std::chrono::duration< double, std::milli > (timer).count() - arithmetic_mean )/(time_control+1) );
+```
+
+Buscando o máximo de precisão cada amostra é analisada 10 vezes e o tempo guardado é a média de todas as execuções. Com o intuito de evitar erros de arredondamento o programa utiliza a seguinte fórmula:
+
+​                    $M_{k}$ =  $M_{k-1}$ $+$ $\frac{x_{k} - M_{k-1}}k$ 
+
++ **`type_array`** 
+
+ ```c++
+//==========================================================================
+// Seleciona baseado no laço qual amostra deve ser gerada para análise.
+//==========================================================================
+void type_array( long int * array ,int type, DATA data, long int max )
+{
+
+        switch( type )
+        {
+            case 0 :
+                std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                random_array( array, array + max, max );
+                break;
+            case 1 :
+                std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                ascending_sorting( array, array + max );
+                break;
+            case 2 :
+                std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                descending_sorting( array, array + max );
+                break;
+            case 3 :
+                std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                ascending_sorting( array, array + max );
+                partial_sorting( array, array + max, 25 );
+                break;
+            case 4 :
+                std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                ascending_sorting( array, array + max );
+                partial_sorting( array, array + max, 50);
+                break;
+            case 5 :
+                std::cout << "\nTEST " << type+1 << " -- " << data.typesample[type] << "\n";
+                ascending_sorting( array, array + max );
+                partial_sorting( array, array + max, 75 );
+                break;
+            default:
+                std::cout << "\nHow?\n";
+                break;
+        }
+}
+//==========================================================================
+ ```
+
+
+
+## Algoritmos
+
+
+
+### Quick Sort
+
+* Criado por Hoareem em 1960 
+* É o método de ordenação interna mais rápido que se conhece para uma ampla variedade de situações.
+
+* Complexidade no pior caso: $O(n²)$ 
+
+* Complexidade no melhor e médio caso: $O(n log n)$ 
+
+* Não é estável.
+
+* Estratégia:  **_dividir e conquistar_**
+
+* Funcionamento:
+
+  ```
+  
+  ```
+
+  ```
+  procedimento QuickSort(X[], IniVet, FimVet)
+  var
+     i, j, pivo, aux
+  início
+     i <- IniVet
+     j <- FimVet
+     pivo <- X[(IniVet + FimVet) div 2]
+     enquanto(i <= j)
+      |      enquanto (X[i] < pivo) faça
+      |       |   i <- i + 1
+      |      fimEnquanto
+      |      enquanto (X[j] > pivo) faça
+      |       |   j <- j - 1
+      |      fimEnquanto
+      |      se (i <= j) então
+      |       |   aux  <- X[i]
+      |       |   X[i] <- X[j]
+      |       |   X[j] <- aux
+      |       |   i <- i + 1
+      |       |   j <- j - 1
+      |      fimSe
+     fimEnquanto
+     se (IniVet < j) então
+      |  QuickSort(X, IniVet, j)
+     fimSe
+     se (i < FimVet) então
+      |  QuickSort(X, i, FimVet)
+     fimse
+  fimprocedimento
+  ```
+
+
+
+##### Gráficos:
+
+`Cenário`: Arranjo completamente aleatório
 
