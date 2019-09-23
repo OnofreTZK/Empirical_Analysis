@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 # Relatório técnico
 
 ## Sumário
@@ -19,6 +27,12 @@
 * **Algoritmos**
   	+  _**Quick Sort**_
   	+  _**Insertion Sort**_
+  	+  **_Selection Sort_**
+  	+  **_Bubble Sort_**
+  	+  **_Shell Sort_**
+  	+  **_Radix Sort_**
+  	+  _**Quick + Insertion**_
+* **Resultados**
 
 ## Introdução 
 
@@ -378,7 +392,7 @@ void type_array( long int * array ,int type, DATA data, long int max )
 
 <img src="data/quick/quick_sort_Full_random.png" alt="quick_sort_Full_random" style="zoom: 150%;" />
 
-Os picos representam os momentos em que as amostras tendem ao pior caso, porém a eficiência do algoritmo é evidente.
+Os picos representam os momentos em que as amostras tendem ao pior caso, porém a eficiência do algoritmo é excelente em um arranjo sem ordem total.
 
 
 
@@ -418,7 +432,7 @@ Assim como o gráfico anterior, esse demonstra outro exemplo de pior caso com o 
 
 ![comparação quick 25,50,75](data/quick/compara%C3%A7%C3%A3o%20quick%2025,50,75.png)
 
-Pela observação comparativa dos 3 gráficos é notória a queda desempenho do algoritmo quando a divisão do vetor é desbalanceada, com isso pode-se concluir que o quick sort não é a melhor opção para arranjos parcialmente ordenados.
+Pela observação comparativa dos gráficos há uma queda de desempenho do algoritmo quando a divisão do vetor é desbalanceada( pivô tendendo as pontas ), com isso pode-se concluir que o quick sort não é a melhor opção para arranjos parcialmente ordenados.
 
 
 
@@ -465,7 +479,7 @@ Pela observação comparativa dos 3 gráficos é notória a queda desempenho do 
 
 <img src="data/insertion/insertion%20sort_Full%20random.png" alt="insertion sort_Full random" style="zoom:150%;" />
 
-Em um arranjo sem ordem total o algoritmo não tem eficiência e deve ser evitado para amostras muito grandes 
+Em um arranjo não ordenado o algoritmo não tem uma boa eficiência e deve ser evitado para amostras muito grandes. 
 
 
 
@@ -558,13 +572,15 @@ O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a or
 
 ![selection sort_sorted: 75%](data/selection/selection%20sort_sorted:%2075%25.png)
 
-
+`Cenário`: _Arranjo 50% ordenado_ 
 
 ![selection sort_sorted: 50%](data/selection/selection%20sort_sorted:%2050%25.png)
 
+`Cenário`: _Arranjo 50% ordenado_
+
 ![selection sort_sorted: 25%](data/selection/selection%20sort_sorted:%2025%25.png)
 
-
+`Comparação`: _Arranjo parcialmente ordenado_ 
 
 ![comparação selection s5,50,75](data/selection/compara%C3%A7%C3%A3o%20selection%20s5,50,75.png)
 
@@ -576,5 +592,413 @@ O selection sort tem como única vantagem a sua implementação simples. Todos o
 
 ### Bubble Sort
 
+* Ordenação por flutuação: a ideia é percorrer o arranjo diversas vezes, e a cada passagem fazer "flutuar" para o topo o maior elemento da sequência.
 
+* Complexidade no melhor caso: $O(n)$
+
+* Complexidade no pior caso: $O(n²)$
+
+* Funcionamento:
+
+  ```
+  procedure bubbleSort( A : lista de itens ordenaveis ) defined as:
+    do
+      trocado := false
+      for each i in 0 to length( A ) - 2 do:
+        // verificar se os elementos estão na ordem certa
+        if A[ i ] > A[ i + 1 ] then
+          // trocar elementos de lugar
+          trocar( A[ i ], A[ i + 1 ] )
+          trocado := true
+        end if
+      end for
+    // enquanto houver elementos sendo reordenados.
+    while trocado
+  end procedure
+  ```
+
+
+
+`Cenário`: _Arranjo completamente aleatório_
+
+![bubble sort full random](data/bubble/bubble%20sort%20full%20random.png)
+
+
+
+`Cenário`: _Arranjo em ordem não decrescente_ 
+
+![bubble sort non-descending order](data/bubble/bubble%20sort%20non-descending%20order.png)
+
+semelhante ao insertion, o bubble opera melhor em arranjos que tendem a ordem total.
+
+`Cenário`: _Arranjo em ordem não crescente_ 
+
+![bubble sort non-ascending order](data/bubble/bubble%20sort%20non-ascending%20order.png)
+
+
+
+
+
+`Cenário`: _Arranjo 75% ordenado_ 
+
+![](data/bubble/bubble%20sort%20sorted:%2075%25.png)
+
+
+
+
+
+`Cenário`:  _Arranjo 50% ordenado_
+
+![bubble sort sorted: 50%](data/bubble/bubble%20sort%20sorted:%2050%25.png)
+
+
+
+`Cenário`: _Arranjo 25% ordenado_  
+
+![bubble sort sorted: 25%](data/bubble/bubble%20sort%20sorted:%2025%25.png)
+
+
+
+`Comparação`: _Arranjo parcialmente ordenado_ 
+
+![comparação bubble 25,50,75](data/bubble/compara%C3%A7%C3%A3o%20bubble%2025,50,75.png)
+
+
+
+
+
+### Shell Sort
+
+* O método Shell: é uma extensão do algoritmo de ordenação por inserção. Ele permite a troca de posições distantes ums das outras, diferente do insertion sort que possui a troca de itens adjacentes para determinar o ponto de inserção. 
+
+* A complexidade do algoritmo é **desconhecida**, ninguém ainda foi capaz de encontrar uma fórmula fechada. 
+
+* O método não é estável.
+
+* Os itens separados de `h`posições (itens distantes) são ordenados: o elemento na posição `x`é comparado e trocado (caso satisfaça a condição de ordenação) com o elemento na posição `x-h`. Este processo repete até `h=1`, quando esta condição é satisfeita o algoritmo é equivalente ao método de inserção.
+
+* Funcionamento:
+
+  ```
+  // Algoritmo de ordeção ShellSort
+      public static void ordenaçãoShell(int[] v) {
+          final int N = v.length;
+          int incremento = N;
+          do {
+              incremento = incremento / 2;
+              for (int k = 0; k < incremento; k++) {
+                  for (int i = incremento + k; i < N; i += incremento) {
+                      int j = i;
+                      while (j - incremento >= 0 && v[j] < v[j - incremento]) {
+                          int tmp = v[j];
+                          v[j] = v[j - incremento];
+                          v[j - incremento] = tmp;
+                          j -= incremento;
+                      }
+                  }
+              }
+          } while (incremento > 1);
+      }
+  ```
+
+  
+
+
+
+`Cenário`: _Arranjo completamente aleatório_
+
+![shell sort_Full random](data/shell/shell%20sort_Full%20random.png)
+
+O melhor resultado nas análises foi em um arranjo sem ordem total, quando operado em alguma ordem parcial os resultados fogem do "padrão" dos algoritmos de ordenação. 
+
+
+
+`Cenário`:  _Arranjo em ordem não decrescente_
+
+
+
+![shell sort_non-descending order](data/shell/shell%20sort_non-descending%20order.png)
+
+
+
+`Cenário`: _Arranjo em ordem não crescente_
+
+![](data/shell/shell%20sort_non-ascending%20order.png)
+
+
+
+`Cenário`: _Arranjo 75% ordenado_
+
+![](data/shell/shell%20sort_sorted:%2075%25.png)
+
+`Cenário`:  _Arranjo 50% ordenado_
+
+![](data/shell/shell%20sort_sorted:%2050%25.png)
+
+
+
+`Cenário`: _Arranjo 25% ordenado_
+
+![](data/shell/shell%20sort_sorted:%2025%25.png)
+
+
+
+`Comparação`: _Arranjo parcialmente ordenado_
+
+![](data/shell/comparac%CC%A7a%CC%83o%20shell%2025,%2050,%2075.png)
+
+
+
+
+
+### 
+
+### Radix Sort
+
+* Rápido e estável
+
+* Pode ser usado para ordenar itens que estão identificados por chaves únicas. Cada chave é uma cadeia de caracteres ou números.
+
+* Ordena as chaves em qualquer ordem relacionada com a lexicografia
+
+* Radix sort é um algoritmo que ordena inteiros processando dígitos individuais.  __Como os inteiros podem representar strings compostas de caracteres (como nomes ou datas) e pontos flutuantes especialmente formatados, radix sort não é limitado somente a inteiros.__
+
+* A versão implementada neste projeto é a LSD - ( Least significant digit ).
+
+* O radix sort LSD começa do dígito menos significativo até o mais significativo, ordenando tipicamente da seguinte forma: chaves curtas vem antes de chaves longas, e chaves de mesmo tamanho são ordenadas lexicograficamente. **Isso coincide com a ordem normal de representação dos inteiros**, como a sequência "1, 2, 3, 4, 5, 6, 7, 8, 9, 10". Os valores processados pelo algoritmo de ordenação são frequentemente chamados de “chaves”, que podem existir por si próprias ou associadas a outros dados. As chaves podem ser strings de caracteres ou números.
+
+* Funcionamento:
+
+  ```
+  long int getMax( long int * first, long int * last, long int &count )
+  {
+      long int maximum = *first;
+  
+      while( first < last )
+      {
+          if( maximum < *first )
+          {
+              maximum = *first;
+              count++; // if
+          }
+          first++;
+          count += 2; // while and increment.
+      }
+  
+      return maximum;
+  }
+  
+  void countingSort( long int * first, long int * last, long int digit, long int &count )
+  {
+      long int size = std::distance( first, last );
+  
+      long int * output = new long int [size];
+  
+      long int cnt[10] = { 0 };
+  
+      long int * left = first;
+  
+      cnt[0] = 0;
+  
+      for( int i = 0; i < size; i++ )
+      {
+          cnt[ (*left/digit)%10 ]++;
+          left++;
+          count += 3; // increments and loop.
+  
+      }
+  
+      for( int i = 1; i < 10; i++ )
+      {
+          cnt[i] += cnt[i -1];
+          count++;
+      }
+  
+      left = last;
+  
+      for( int i = size - 1; i >= 0; i-- )
+      {
+          left--;
+          output[ cnt[ (*left/digit)%10 ] - 1 ] = *left;
+          cnt[ (*left/digit)%10 ]--;
+          count += 3;
+  
+      }
+  
+      left = first;
+  
+      for( int i = 0; i < size; i++ )
+      {
+          *left = output[i];
+          left++;
+          count += 2;
+      }
+  
+      delete[] output;
+  
+  }
+  
+  void radix( long int * first, long int * last, long int &count )
+  {
+      long int maximum = getMax( first, last, count );
+  
+      for( long int digit = 1; maximum/digit > 0; digit *= 10 )
+      {
+          countingSort( first, last, digit, count );
+          count++;
+      }
+  
+  }
+  
+  ```
+
+
+
+
+
+`Cenário`: _Arranjo completamente aleatório_
+
+
+
+![](data/radix/radix%20sort_Full%20random.png)
+
+
+
+
+
+`Cenário`: _Arranjo em ordem não decrescente_
+
+
+
+![](data/radix/radix%20sort_non-descending%20order.png)
+
+
+
+`Cenário`: _Arranjo 75% ordenado_
+
+
+
+![](data/radix/radix%20sort_sorted:%2075%25.png)
+
+
+
+`Cenário`: _Arranjo 50% ordenado_
+
+
+
+![](data/radix/radix%20sort_sorted:%2050%25.png)
+
+
+
+
+
+`Cenário`: _Arranjo 25% ordenado_
+
+
+
+![](data/radix/radix%20sort_sorted:%2025%25.png)
+
+
+
+`Comparação`: _Arranjo parcialmente ordenado_
+
+
+
+![](data/radix/comparac%CC%A7a%CC%83o%20radix%2025,50,75.png)
+
+A eficiência do radix independe do cenário e do tamanho da amostra, visto que nenhuma medida do tempo de execução alcançou 1 ms.
+
+
+
+
+
+### Quick + Insertion 
+
+* O insertion é utilizado nas camadas mais baixas da recursão do quick quando o intervalo entre `first` e `last` é pequeno.
+
+* Funcionamento:
+
+  ````
+  void variable( long int * first, long int * last, long int &count )
+  {
+  
+      if( first == last )
+      {
+          count++; // if.
+          return;
+      }
+      
+      // inserindo o insertion em segmentos parcialmente ja ordenados pelo partition.
+      if( std::distance( first, last ) < 9 )
+      {
+          count++; // if
+          insertion( first, last, count ); 
+      }
+  
+      long int * pivot = partition( first, last, last - 1, count );
+      variable( first, pivot, count);
+      variable( pivot + 1, last, count );
+  
+  }
+  ````
+
+
+
+
+
+`Cenário`: _Arranjo completamente aleatório_
+
+![](data/variable/quick%20+%20insertion_Full%20random.png)
+
+
+
+`Cenário`: _Arranjo em ordem não decrescente_
+
+![](data/variable/quick%20+%20insertion_non-descending%20order.png)
+
+
+
+
+
+`Cenário`: _Arranjo em ordem não crescente_
+
+![](data/variable/quick%20+%20insertion_non-ascending%20order.png)
+
+
+
+
+
+`Cenário`: _Arranjo 75% ordenado_
+
+![](data/variable/quick%20+%20insertion_sorted:%2075%25.png)
+
+
+
+
+
+`Cenário`: _Arranjo 50% ordenado_
+
+![](data/variable/quick%20+%20insertion_sorted:%2050%25.png)
+
+
+
+
+
+`Cenário`: _Arranjo 25% ordenado_
+
+![](data/variable/quick%20+%20insertion_sorted:%2025%25.png)
+
+
+
+
+
+`Comparação`: _Arranjo parcialmente ordenado_
+
+![](data/variable/comparac%CC%A7a%CC%83o%20quick+insertion%2025,50,75.png)
+
+
+
+
+
+## Resultados
 
