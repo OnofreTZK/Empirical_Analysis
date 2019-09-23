@@ -108,7 +108,7 @@ $ ./ea_drive 10000 5000 50 0 1 2
 
 ### Processando as linhas de comando
 
-Após a leitura e o processamento de argumentos, todos os dados são passadas para a função principal `execute_analysis` :
+Após a leitura e o processamento de argumentos, todos os dados são passados para a função principal `execute_analysis` :
 
 ```c++
   // Exemplo de uma execução com 3 algoritmos.       

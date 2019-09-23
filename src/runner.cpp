@@ -178,15 +178,23 @@ void create_data_file( DATA data, int algorithm_ID, int type )
 {
     std::ofstream file ("../data/"+data.sort_ID[algorithm_ID]+"_"+data.typesample[type]+".txt");
 
+    std::ofstream fileS ("../data/steps"+data.sort_ID[algorithm_ID]+"_"+data.typesample[type]+".txt");
+
     data.get_data( &file );
 
+    data.get_data_steps ( &fileS );
+
     file.close();
+    std::cout << "\n\x1b[96m[OK]\x1b[0m File with time measures.\n";
+    fileS.close();
+    std::cout << "\n\x1b[96m[OK]\x1b[0m File with steps.\n";
+
 }
 //================================================================================================
 
 
 
-void print4test( long int * first, long int * last )
+void print4test( long int * first, long int * last, long int count )
 {
 
     std::cout << "\n[ ";
@@ -196,7 +204,7 @@ void print4test( long int * first, long int * last )
 
         first++;
     }
-    std::cout << "]\n";
+    std::cout << "]\n\n Passos: " << count << "\n";
 }
 
 
@@ -205,11 +213,13 @@ void printer( long int max )
 {
     long int * arraytest = generate_array( max );
 
-    print4test( arraytest, arraytest + max );
+    long int count = 0;
 
-    variable( arraytest, arraytest + max );
+    print4test( arraytest, arraytest + max, count );
 
-    print4test( arraytest, arraytest + max );
+    selection( arraytest, arraytest + max, count );
+
+    print4test( arraytest, arraytest + max, count );
 
     delete[] arraytest;
 }
@@ -227,6 +237,8 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
     double arithmetic_mean;// necessary to progressive mean
     //=========================================================
 
+    long int step_count; // count how many steps to sorting
+
     data.alocate_vectors( samples );
 
     for( int type = 0; type < 6; type++ )
@@ -242,9 +254,11 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
             {
                 type_array( array, type, data, max );
 
+                step_count = 0; // count how many steps to sorting
+
                 // -- TIMER STARTS HERE --
                 std::chrono::steady_clock::time_point START = std::chrono::steady_clock::now();
-                func( array, array + increase_array_control( max, samples, init_sample, iter_samples + 1 ) );
+                func( array, array + increase_array_control( max, samples, init_sample, iter_samples + 1 ), step_count );
                 std::chrono::steady_clock::time_point STOP = std::chrono::steady_clock::now();
                 // -- TIMER STOPS HERE --
 
@@ -258,7 +272,7 @@ void execute_analysis( algorithms func, int algorithm_ID, long int max,
             long int sample = increase_array_control( max, samples, init_sample, iter_samples + 1 );
 
             //setting values in data.
-            data.set_values( sample, arithmetic_mean, iter_samples );
+            data.set_values( sample, arithmetic_mean, iter_samples, step_count );
         }
 
         //create file.

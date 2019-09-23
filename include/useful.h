@@ -6,7 +6,7 @@
 #include <fstream>
 
 //pointer to function
-typedef void (*algorithms) ( long int * first, long int * last );
+typedef void (*algorithms) ( long int * first, long int * last, long int &count );
 
 //Help to guide user.
 void printHelp();
@@ -16,6 +16,7 @@ class DATA
     private:
       std::vector< double > time_data;
       std::vector< long int > samples_size;
+      std::vector< long int > count_steps;
 
     public:
 
@@ -40,12 +41,14 @@ class DATA
       {
           time_data.resize( samples );
           samples_size.resize( samples );
+          count_steps.resize( samples );
       };
 
-      void set_values( long int sample, double timer, int index )
+      void set_values( long int sample, double timer, int index, long int steps )
       {
           time_data[index] = timer;
           samples_size[index] = sample;
+          count_steps[index] = steps;
       }
 
       void get_data( std::ofstream * file )
@@ -56,6 +59,13 @@ class DATA
           }
       }
 
+      void get_data_steps( std::ofstream * file )
+      {
+          for( size_t i = 0; i < time_data.size(); i++ )
+          {
+              *file << samples_size[i] << " " << count_steps[i] << "\n";
+          }
+      }
 
 };
 

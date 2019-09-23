@@ -21,7 +21,7 @@ void copyiterator( long int * newfirst, long int * newlast, long int * first, lo
 
 
 
-void merge( long int * first, long int * last, long int * half )
+void merge( long int * first, long int * last, long int * half, long int &count )
 {
     int size1 = std::distance( first, half );
     int size2 = std::distance( half, last );
@@ -107,17 +107,18 @@ void merge( long int * first, long int * last, long int * half )
 }
 
 
-void mergesort( long int * first, long int * last )
+void mergesort( long int * first, long int * last, long int &count )
 {
     if( first == last )
     {
+        count++; // if
         return;
     }
 
     long int * half = first + std::distance( first, last )/2;
 
-    mergesort( first, half );
-    mergesort( half + 1, last );
+    mergesort( first, half, count );
+    mergesort( half + 1, last, count );
 
-    merge( first, last, half );
+    merge( first, last, half, count );
 }

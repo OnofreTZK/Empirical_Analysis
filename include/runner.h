@@ -27,7 +27,7 @@ void partial_sorting( long int * first, long int * last, int partial );
 // linear increment to array size(PA).
 long int increase_array_control( long int max, long int samples, long int init_sample, int index );
 
-void print4test( long int * first, long int * last );
+void print4test( long int * first, long int * last, long int count );
 
 void printer( long int max );
 

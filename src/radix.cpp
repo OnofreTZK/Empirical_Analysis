@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iterator>
 
-long int getMax( long int * first, long int * last )
+long int getMax( long int * first, long int * last, long int &count )
 {
     long int maximum = *first;
 
@@ -12,34 +12,39 @@ long int getMax( long int * first, long int * last )
         if( maximum < *first )
         {
             maximum = *first;
+            count++; // if
         }
         first++;
+        count += 2; // while and increment.
     }
 
     return maximum;
 }
 
-void countingSort( long int * first, long int * last, long int digit )
+void countingSort( long int * first, long int * last, long int digit, long int &count )
 {
     long int size = std::distance( first, last );
 
     long int * output = new long int [size];
 
-    long int count[10] = { 0 };
+    long int cnt[10] = { 0 };
 
     long int * left = first;
 
-    count[0] = 0;
+    cnt[0] = 0;
 
     for( int i = 0; i < size; i++ )
     {
-        count[ (*left/digit)%10 ]++;
+        cnt[ (*left/digit)%10 ]++;
         left++;
+        count += 3; // increments and loop.
+
     }
 
     for( int i = 1; i < 10; i++ )
     {
-        count[i] += count[i -1];
+        cnt[i] += cnt[i -1];
+        count++;
     }
 
     left = last;
@@ -47,8 +52,10 @@ void countingSort( long int * first, long int * last, long int digit )
     for( int i = size - 1; i >= 0; i-- )
     {
         left--;
-        output[ count[ (*left/digit)%10 ] - 1 ] = *left;
-        count[ (*left/digit)%10 ]--;
+        output[ cnt[ (*left/digit)%10 ] - 1 ] = *left;
+        cnt[ (*left/digit)%10 ]--;
+        count += 3;
+
     }
 
     left = first;
@@ -57,19 +64,21 @@ void countingSort( long int * first, long int * last, long int digit )
     {
         *left = output[i];
         left++;
+        count += 2;
     }
 
     delete[] output;
 
 }
 
-void radix( long int * first, long int * last )
+void radix( long int * first, long int * last, long int &count )
 {
-    long int maximum = getMax( first, last );
+    long int maximum = getMax( first, last, count );
 
     for( long int digit = 1; maximum/digit > 0; digit *= 10 )
     {
-        countingSort( first, last, digit );
+        countingSort( first, last, digit, count );
+        count++;
     }
 
 }

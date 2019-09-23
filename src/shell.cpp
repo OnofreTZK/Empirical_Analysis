@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iterator>
 
-void shell( long int * first, long int * last )
+void shell( long int * first, long int * last, long int &count )
 {
     long int size = std::distance( first, last );
 
@@ -22,11 +22,14 @@ void shell( long int * first, long int * last )
             for( j = i; j >= gap && array_aux[j - gap] > aux; j -= gap )
             {
                 array_aux[j] = array_aux[j - gap];
+                count++;
             }
 
             array_aux[j] = aux;
-
+            count++;
         }
+
+        count++;
 
     }
 
