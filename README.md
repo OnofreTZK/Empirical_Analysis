@@ -13,14 +13,18 @@
   + **Funções Principais** 
     + `generate_array`
     + `increase_array_control`
-    + **Cálculo da média aritmética progressiva**
+    + `Cálculo da média aritmética progressiva`
     + `type_array `
+
+* **Algoritmos**
+  	+  _Quick Sort_
+  	+  _Insertion Sort_
 
 ## Introdução 
 
 ### Sobre o projeto
 
-   O projeto de análise empírica tem como objetivo analisar o desempenho de determinados algoritmos de ordenação baseado no seu tempo de execução e número de interações em arranjos de tamanho `n` crescente. O projeto trabalha com seis cenários de amostras: ordem completamente aleatória, ordem não decrescente, ordem não crescente, arranjo 75% ordenado, arranjo 50% ordenado e arranjo 25% ordenado.
+   O projeto de análise empírica tem como objetivo analisar o desempenho de um conjunto de algoritmos de ordenação baseado no seu tempo de execução e número de interações em arranjos de tamanho `n` crescente. O projeto trabalha com seis cenários de amostras: ordem completamente aleatória, ordem não decrescente, ordem não crescente, arranjo 75% ordenado, arranjo 50% ordenado e arranjo 25% ordenado.
 
 ### Requisitos para reprodução e execução dos testes
 
@@ -236,9 +240,15 @@ long int increase_array_control( long int max, long int samples, long int init_s
 //====================================================================================
 ```
 
-Fórmula :
+O método de crescimento da `amostra inicial`  ao `tamanho máximo` é linear
+
+  Fórmula :
 
 ​                    $amostra_{n}$ = $amostra_{1}$ $+$ $(n -1)reason$ 
+
+
+
+Com `n` = índice da amostra.
 
 
 
@@ -306,7 +316,6 @@ void type_array( long int * array ,int type, DATA data, long int max )
 
 ### Quick Sort
 
-* Criado por Hoareem em 1960 
 * É o método de ordenação interna mais rápido que se conhece para uma ampla variedade de situações.
 
 * Complexidade no pior caso: $O(n²)$ 
@@ -320,13 +329,9 @@ void type_array( long int * array ,int type, DATA data, long int max )
 * Funcionamento:
 
   ```
-  
-  ```
-
-  ```
   procedimento QuickSort(X[], IniVet, FimVet)
   var
-     i, j, pivo, aux
+   i, j, pivo, aux
   início
      i <- IniVet
      j <- FimVet
@@ -363,7 +368,7 @@ void type_array( long int * array ,int type, DATA data, long int max )
 
 <img src="data/quick/quick_sort_Full_random.png" alt="quick_sort_Full_random" style="zoom: 150%;" />
 
-Os picos representam os momentos em que as amostras tendem ao pior caso
+Os picos representam os momentos em que as amostras tendem ao pior caso, porém a eficiência do algoritmo é evidente.
 
 
 
@@ -371,11 +376,11 @@ Os picos representam os momentos em que as amostras tendem ao pior caso
 
 <img src="data/quick/quick%20sort_non-descending%20order.png" alt="quick sort_non-descending order" style="zoom:150%;" />
 
-Aqui temos em exemplo pior caso demonstrado com o pivô igual a `last - 1` e todos os elementos menores à sua esquerda. Com a limitação da máquina não foi possível analisar amostras muito maiores para melhor visualização da curva da parábola. 
+Aqui temos um exemplo de pior caso demonstrado com o pivô igual a `last - 1` e todos os elementos menores à sua esquerda. Com a limitação da máquina não foi possível analisar amostras muito maiores para melhor visualização da curva da parábola. 
 
 
 
-`Cenário`: _Arranjo em ordem não crescente_
+`Cenário`:  _Arranjo em ordem não crescente_
 
 <img src="data/quick/quick%20sort_non-ascending%20order.png" alt="quick sort_non-ascending order" style="zoom:150%;" />
 
@@ -383,23 +388,183 @@ Assim como o gráfico anterior, esse demonstra outro exemplo de pior caso com o 
 
 
 
-`Cenário`: _Arranjo 75% ordenado_
+`Cenário`:  _Arranjo 75% ordenado_
 
 <img src="data/quick/quick%20sort_sorted:%2075%25.png" alt="quick sort_sorted: 75%" style="zoom:150%;" />
 
 
 
-`Cenário`: _Arranjo 50% ordenado_ 
+`Cenário`:  _Arranjo 50% ordenado_ 
 
 <img src="data/quick/quick%20sort_sorted:%2050%25.png" alt="quick sort_sorted: 50%" style="zoom:150%;" />
 
 
 
-`Cenário`: _Arranjo 25% ordenado_
+`Cenário`:  _Arranjo 25% ordenado_
 
 <img src="data/quick/quick%20sort_sorted:%2025%25.png" alt="quick sort_sorted: 25%" style="zoom:150%;" />
 
-`Comparação`: _Arranjos parcialmente ordenados_
+`Comparação`:  _Arranjos parcialmente ordenados_
 
 ![comparação quick 25,50,75](data/quick/compara%C3%A7%C3%A3o%20quick%2025,50,75.png)
+
+Pela observação comparativa dos 3 gráficos é notória a queda desempenho do algoritmo quando a divisão do vetor é desbalanceada, com isso pode-se concluir que o quick sort não é a melhor opção para arranjos parcialmente ordenados.
+
+
+
+
+
+### Insertion Sort
+
+* Ordenação por inserção 
+
+* Percorre um vetor de elementos da esquerda para a direita e à medida que avança vai ordenando os elementos à esquerda
+
+* Complexidade no melhor caso:  $ O(n)$
+
+* Complexidade no pior caso: $ O(n²) $ 
+
+*  Método de ordenação estável.
+
+* Funcionamento:
+
+  ```
+  FUNÇÃO INSERTION_SORT (A[], tamanho)
+          VARIÁVEIS
+                  i, j, eleito
+          PARA i <- 1 ATÉ (tamanho-1) FAÇA
+                  eleito <- A[i];
+                  j <- i-1;
+                  ENQUANTO ((j>=0) E (eleito < A[j])) FAÇA
+                            A[j+1]:= A[j];
+  # Elemento de lista numerada
+                            j:=j-1;
+                  FIM_ENQUANTO
+                  A[j+1] <- eleito;
+          FIM_PARA
+  FIM
+  ```
+
+   
+
+**Gráficos** :
+
+
+
+`Cenário`:  _Arranjo completamente aleatório_
+
+<img src="data/insertion/insertion%20sort_Full%20random.png" alt="insertion sort_Full random" style="zoom:150%;" />
+
+Em um arranjo sem ordem total o algoritmo não tem eficiência e deve ser evitado para amostras muito grandes 
+
+
+
+`Cenário`:  _Arranjo em ordem não decrescente_
+
+<img src="data/insertion/insertion%20sort_non-descending%20order.png" alt="insertion sort_non-descending order" style="zoom:150%;" />
+
+Visualização do insertion sort no seu melhor caso com o gráfico praticamente linear. Os picos se devem a variação de desempenho da máquina uma vez que o arranjo não possui repetição aumentando o número de interações.
+
+`Cenário`: _Arranjo em ordem não crescente_
+
+![insertion sort_non-ascending order](data/insertion/insertion%20sort_non-ascending%20order.png)
+
+Visualização do pior caso, onde o algoritmo inverte completamente o vetor e sua complexidade é inevitavelmente quadrática.
+
+`Cenário`:  _Arranjo 75% ordenado_
+
+![insertion sort_sorted: 75%](data/insertion/insertion%20sort_sorted:%2075%25.png)
+
+`Cenário`: _Arranjo 50% ordenado_
+
+<img src="data/insertion/insertion%20sort_sorted:%2050%25.png" alt="insertion sort_sorted: 50%" style="zoom:150%;" />
+
+
+
+`Cenário`: _Arranjo 25% ordenado_
+
+<img src="data/insertion/insertion%20sort_sorted:%2025%25.png" alt="insertion sort_sorted: 25%" style="zoom:150%;" />
+
+
+
+`Comparação`: _Arranjo parcialmente ordenado_ 
+
+![comparação insertion 25,50,75](data/insertion/compara%C3%A7%C3%A3o%20insertion%2025,50,75.png)
+
+O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a ordem total. Fica clara a redução e/ou inexistência de picos no tempo de execução quanto mais ordenado estiver o vetor.
+
+
+
+
+
+### Selection Sort
+
+* Ordenação por seleção: seleciona o menor item e colocar na primeira posição, seleciona o segundo menor item e colocar na segunda posição, segue estes passos até que reste um único elemento. 
+
+* Complexidade em todos os casos: $O(n²)$ 
+
+* Não é estável.
+
+* Funcionamento:
+
+  ```
+   var i,j,aux,menor : INTEIRO
+   PARA i=0 ATE (vet.tamanho-1) PASSO 1
+    menor = i
+    PARA j=i+1 ATE vet.tamanho PASSO 1
+     SE (vet[menor] > vet[j]) ENTAO
+      menor = j
+      FIMSE
+      FIMPARA
+     SE (menor != i) ENTAO
+      aux = vet[menor]
+      vet[menor] = vet[i]
+      vet[i] = aux
+    FIMSE
+   FIMPARA
+  ```
+
+
+
+`Cenário`: _Arranjo completamente aleatório_ 
+
+![selection sort_Full random](data/selection/selection%20sort_Full%20random.png)
+
+
+
+`Cenário`: _Arranjo em ordem não decrescente_
+
+![selection sort_non-descending order](data/selection/selection%20sort_non-descending%20order.png)
+
+
+
+`Cenário`: _Arranjo em ordem não crescente_ 
+
+![selection sort_non-ascending order](data/selection/selection%20sort_non-ascending%20order.png)
+
+
+
+`Cenário`: _Arranjo 75% ordenado_ 
+
+![selection sort_sorted: 75%](data/selection/selection%20sort_sorted:%2075%25.png)
+
+
+
+![selection sort_sorted: 50%](data/selection/selection%20sort_sorted:%2050%25.png)
+
+![selection sort_sorted: 25%](data/selection/selection%20sort_sorted:%2025%25.png)
+
+
+
+![comparação selection s5,50,75](data/selection/compara%C3%A7%C3%A3o%20selection%20s5,50,75.png)
+
+O selection sort tem como única vantagem a sua implementação simples. Todos os gráficos possuem praticamente o mesmo tempo de execução nos 6 cenários apresentados, isso se deve ao fato de que antes de fazer qualquer troca, o algoritmo realiza uma busca sequencial( $O(n-i)$ ) para cada posição do vetor, tornando-o ineficiente.
+
+
+
+
+
+### Bubble Sort
+
+
 
