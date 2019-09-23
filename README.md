@@ -17,8 +17,8 @@
     + `type_array `
 
 * **Algoritmos**
-  	+  _Quick Sort_
-  	+  _Insertion Sort_
+  	+  _**Quick Sort**_
+  	+  _**Insertion Sort**_
 
 ## Introdução 
 
@@ -248,7 +248,13 @@ O método de crescimento da `amostra inicial`  ao `tamanho máximo` é linear
 
 
 
-Com `n` = índice da amostra.
+ `n` = índice da amostra.
+
+
+
+`reason` =  $\frac{amostra_{m} - amostra_{0}}S$
+
+`S` = número de amostras.
 
 
 
@@ -260,7 +266,11 @@ arithmetic_mean = arithmetic_mean + ( ( std::chrono::duration< double, std::mill
 
 Buscando o máximo de precisão cada amostra é analisada 10 vezes e o tempo guardado é a média de todas as execuções. Com o intuito de evitar erros de arredondamento o programa utiliza a seguinte fórmula:
 
-​                    $M_{k}$ =  $M_{k-1}$ $+$ $\frac{x_{k} - M_{k-1}}k$ 
+​                    
+
+$M_{k}$ =  $M_{k-1}$ $+$ $\frac{x_{k} - M_{k-1}}k$ 
+
+
 
 + **`type_array`** 
 
