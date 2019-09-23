@@ -359,5 +359,47 @@ void type_array( long int * array ,int type, DATA data, long int max )
 
 ##### Gráficos:
 
-`Cenário`: Arranjo completamente aleatório
+`Cenário`: _Arranjo completamente aleatório_
+
+<img src="data/quick/quick_sort_Full_random.png" alt="quick_sort_Full_random" style="zoom: 150%;" />
+
+Os picos representam os momentos em que as amostras tendem ao pior caso
+
+
+
+`Cenário`:  _Arranjo em ordem não decrescente_
+
+<img src="data/quick/quick%20sort_non-descending%20order.png" alt="quick sort_non-descending order" style="zoom:150%;" />
+
+Aqui temos em exemplo pior caso demonstrado com o pivô igual a `last - 1` e todos os elementos menores à sua esquerda. Com a limitação da máquina não foi possível analisar amostras muito maiores para melhor visualização da curva da parábola. 
+
+
+
+`Cenário`: _Arranjo em ordem não crescente_
+
+<img src="data/quick/quick%20sort_non-ascending%20order.png" alt="quick sort_non-ascending order" style="zoom:150%;" />
+
+Assim como o gráfico anterior, esse demonstra outro exemplo de pior caso com o pivô igual a `first`  e todos os elementos maiores à sua direita.
+
+
+
+`Cenário`: _Arranjo 75% ordenado_
+
+<img src="data/quick/quick%20sort_sorted:%2075%25.png" alt="quick sort_sorted: 75%" style="zoom:150%;" />
+
+
+
+`Cenário`: _Arranjo 50% ordenado_ 
+
+<img src="data/quick/quick%20sort_sorted:%2050%25.png" alt="quick sort_sorted: 50%" style="zoom:150%;" />
+
+
+
+`Cenário`: _Arranjo 25% ordenado_
+
+<img src="data/quick/quick%20sort_sorted:%2025%25.png" alt="quick sort_sorted: 25%" style="zoom:150%;" />
+
+`Comparação`: _Arranjos parcialmente ordenados_
+
+![comparação quick 25,50,75](data/quick/compara%C3%A7%C3%A3o%20quick%2025,50,75.png)
 
