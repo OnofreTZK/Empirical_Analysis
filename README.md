@@ -76,7 +76,8 @@ Sandra Bastos
 
 * **Algoritmos**
 * _**Quick Sort**_
-  	+  _**Insertion Sort**_
+* _**Merge Sort**_
+* _**Insertion Sort**_
   	+  **_Selection Sort_**
   	+  **_Bubble Sort_**
   	+  **_Shell Sort_**
@@ -510,6 +511,129 @@ Assim como o gráfico anterior, esse demonstra outro exemplo de pior caso com o 
 Pela observação comparativa dos gráficos há uma queda de desempenho do algoritmo quando a divisão do vetor é desbalanceada( pivô tendendo as pontas ), com isso pode-se concluir que o quick sort não é a melhor opção para arranjos parcialmente ordenados. A quantidade passos é a mesma.
 
 
+
+
+
+### Merge Sort
+
+- Estratégia: _**dividir e conquistar**_ 
+
+-  É um método estável  
+
+-  Complexidade $O(n log n)$ para todos os casos
+
+- Divide o problema em pedaços menores, resolve cada pedaço e depois junta (merge) os resultados. O vetor será dividido em duas partes iguais, que serão cada uma divididas em duas partes, e assim até ficar um ou dois elementos cuja ordenação é trivial.
+
+- Funcionamento
+
+  ```
+  MERGE-SORT(A, p, r)
+      if p < r then
+          q = ((p + r) / 2)
+          Merge-Sort(A, p, q)
+          Merge-Sort(A, q + 1, r)
+          Merge(A, p, q, r)
+  
+  Merge(A, p, q, r)
+      n1 = q - p + 1
+      n2 = r - q
+      sejam L[1 ... n1 + 1] e R[1 ... n2 + 1]
+      for i = 1 to n1
+          L[i] = A[p + i - 1]
+      for j = 1 to n2
+          R[j] = A[q + j]
+  
+      i = 1
+      j = 1
+  
+      for k = p to r
+          if L[i] <= R[j] then A[k] = L[i]
+              i = i + 1
+          else A[k] = R[j]
+              j = j + 1
+  ```
+
+  
+
+
+
+**Gráficos**:
+
+
+
+`Cenário` : _Arranjo completamente aleatório_ 
+
+
+
+![](data/merge/merge%20sort_Full%20random.png)
+
+
+
+
+
+`Cenário` : _Arranjo em ordem não decrescente_
+
+
+
+![](data/merge/merge%20sort_non-descending%20order.png)
+
+
+
+
+
+
+
+`Cenário` : _Arranjo em ordem não crescente_
+
+
+
+![](data/merge/merge%20sort_non-ascending%20order.png)
+
+
+
+
+
+`Cenário` : _Arranjo 75% ordenado_
+
+
+
+![](data/merge/merge%20sort_sorted_%2075%25.png)
+
+
+
+
+
+
+
+`Cenário` : _Arranjo 50% ordenado_
+
+
+
+
+
+![](data/merge/merge%20sort_sorted_%2050%25.png)
+
+
+
+
+
+
+
+`Cenário` : _Arranjo completamente aleatório_
+
+
+
+![](data/merge/merge%20sort_sorted_%2025%25.png)
+
+
+
+
+
+`Comparação` : _Arranjo parcialmente ordenado_ 
+
+
+
+![](data/merge/comparac%CC%A7a%CC%83o%20merge%2025%2050%2075.png)
 
 
 
@@ -1309,5 +1433,5 @@ O Radix sort ordenaria em **`w * 500²e+09 segundos  `**
 
 
 
-O Quick combo se mostrou pior em todos os cenários analisados.
+O Quick combo se mostrou pior em todos os cenários analisados. Apesar da semelhança quando há ordem total( graças ao insertion sort) a diferença sem ordem total não compensa.
 
