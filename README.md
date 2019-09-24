@@ -75,7 +75,7 @@ Sandra Bastos
     + `type_array `
 
 * **Algoritmos**
-  	+  _**Quick Sort**_
+* _**Quick Sort**_
   	+  _**Insertion Sort**_
   	+  **_Selection Sort_**
   	+  **_Bubble Sort_**
