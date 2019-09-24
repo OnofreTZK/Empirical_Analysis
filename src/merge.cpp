@@ -14,23 +14,30 @@ void merge(long int *first, long int *half, long int *last, long int &count) {
 
     for(int i = 0; i < tamTotal; i++) {
         if(slow >= half && fast >= last) {
-            break;
+           count++; 
+           break;
         } else if(slow == half || fast == last) {
+            count++;
             if(slow == half) {
+                count++;
                 for( int j = i; j < tamTotal; j++ ) {
                     newThing[j] = *fast++;
                 }
                 break;
             } else if(fast == last) {
+                count++;
                 for( int j = i; j < tamTotal; j++ ) {
                     newThing[j] = *slow++;
                 }
                 break;
             }
         } else {
+            count++;
             if( *slow < *fast ) {
+                count++;
                 newThing[i] = *slow++;
             } else {
+                count++;
                 newThing[i] = *fast++;
             }
         }
@@ -47,12 +54,16 @@ void merge(long int *first, long int *half, long int *last, long int &count) {
 void mergesort( long int * first, long int * last, long int &count ) {
     auto tamanho = std::distance(first, last);
 
-    if( first == last || tamanho <= 1 ) { return; } // empty array
+    if( first == last || tamanho <= 1 ) 
+    {
+        count++; 
+        return; 
+    } // empty array
 
     // half size
     long int *half = first + int(floor(tamanho/2));
 
-    
+
     mergesort(first, half, count);
     mergesort(half, last, count);
 
