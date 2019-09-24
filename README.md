@@ -1309,6 +1309,5 @@ O Radix sort ordenaria em **`w * 500²e+09 segundos  `**
 
 
 
-O Quick combo se mostrou melhor em todos os cenários analisados
+O Quick combo se mostrou pior em todos os cenários analisados.
 
-![]()
