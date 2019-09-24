@@ -26,7 +26,8 @@ int main(int argc, char *argv[])
                          bubble,
                          radix,
                          shell,
-                         variable };
+                         variable,
+                         mergesort };
 
     if( argc < 5 ) //verify minimal
     {
