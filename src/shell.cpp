@@ -3,6 +3,23 @@
 #include <iostream>
 #include <iterator>
 
+
+void copyiterator( long int * newfirst, long int * newlast, long int * first, long int * last )
+{
+
+    while( first != last  )
+    {
+        *newfirst = *first;
+        //std::cout << *newfirst << ", ";
+
+        newfirst++;
+
+        first++;
+    }
+
+}
+
+
 void shell( long int * first, long int * last, long int &count )
 {
     long int size = std::distance( first, last );

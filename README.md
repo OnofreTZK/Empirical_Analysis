@@ -6,6 +6,56 @@
 
 
 
+# 			Análise empírica de algoritmos de 								ordenação
+
+
+
+## Estrutura de dados básicas I - 2019.2
+
+
+
+## Professor 
+
+Selan Rodrigues dos Santos
+
+
+
+## Autores 
+
+Tiago Onofre 
+
+Sandra Bastos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Relatório técnico
 
 ## Sumário
@@ -35,6 +85,9 @@
 * **Resultados**
   * **Considerações Gerais**
   * **Cenários Apropriados**
+  * **Radix Sort vs Shell Sort vs Quick Sort**
+  * **Quick Sort vs Merge Sort**
+  * **Medições** 
 
 ## Introdução 
 
@@ -398,6 +451,10 @@ Os picos representam os momentos em que as amostras tendem ao pior caso, porém 
 
 
 
+<img src="data/quick/quick_sort_Full_random%20steps.png" style="zoom: 200%;" />
+
+
+
 `Cenário`:  _Arranjo em ordem não decrescente_
 
 <img src="data/quick/quick%20sort_non-descending%20order.png" alt="quick sort_non-descending order" style="zoom:150%;" />
@@ -406,11 +463,21 @@ Aqui temos um exemplo de pior caso demonstrado com o pivô igual a `last - 1` e 
 
 
 
+![](data/quick/stepsquick%20sort_non-descending%20order.png)
+
+
+
+
+
 `Cenário`:  _Arranjo em ordem não crescente_
 
 <img src="data/quick/quick%20sort_non-ascending%20order.png" alt="quick sort_non-ascending order" style="zoom:150%;" />
 
 Assim como o gráfico anterior, esse demonstra outro exemplo de pior caso com o pivô igual a `first`  e todos os elementos maiores à sua direita.
+
+
+
+![](data/quick/stepsquick%20sort_non-ascending%20order.png)
 
 
 
@@ -434,7 +501,13 @@ Assim como o gráfico anterior, esse demonstra outro exemplo de pior caso com o 
 
 ![comparação quick 25,50,75](data/quick/compara%C3%A7%C3%A3o%20quick%2025,50,75.png)
 
-Pela observação comparativa dos gráficos há uma queda de desempenho do algoritmo quando a divisão do vetor é desbalanceada( pivô tendendo as pontas ), com isso pode-se concluir que o quick sort não é a melhor opção para arranjos parcialmente ordenados.
+
+
+![](data/quick/STEPS%20comparac%CC%A7a%CC%83o%20quick%2025,50,75.png)
+
+
+
+Pela observação comparativa dos gráficos há uma queda de desempenho do algoritmo quando a divisão do vetor é desbalanceada( pivô tendendo as pontas ), com isso pode-se concluir que o quick sort não é a melhor opção para arranjos parcialmente ordenados. A quantidade passos é a mesma.
 
 
 
@@ -485,15 +558,29 @@ Em um arranjo não ordenado o algoritmo não tem uma boa eficiência e deve ser 
 
 
 
+![](data/insertion/stepsinsertion%20sort_Full%20random.png)
+
+
+
 `Cenário`:  _Arranjo em ordem não decrescente_
 
 <img src="data/insertion/insertion%20sort_non-descending%20order.png" alt="insertion sort_non-descending order" style="zoom:150%;" />
+
+
+
+![](data/insertion/stepsinsertion%20sort_non-descending%20order.png)
+
+
 
 Visualização do insertion sort no seu melhor caso com o gráfico praticamente linear. Os picos se devem a variação de desempenho da máquina uma vez que o arranjo não possui repetição aumentando o número de interações.
 
 `Cenário`: _Arranjo em ordem não crescente_
 
 ![insertion sort_non-ascending order](data/insertion/insertion%20sort_non-ascending%20order.png)
+
+
+
+![](data/insertion/stepsinsertion%20sort_non-ascending%20order.png)
 
 Visualização do pior caso, onde o algoritmo inverte completamente o vetor e sua complexidade é inevitavelmente quadrática.
 
@@ -517,7 +604,11 @@ Visualização do pior caso, onde o algoritmo inverte completamente o vetor e su
 
 ![comparação insertion 25,50,75](data/insertion/compara%C3%A7%C3%A3o%20insertion%2025,50,75.png)
 
-O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a ordem total. Fica clara a redução e/ou inexistência de picos no tempo de execução quanto mais ordenado estiver o vetor.
+![](data/insertion/STEPS%20comparac%CC%A7a%CC%83o%20insertion%2025,50,75.png)
+
+
+
+O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a ordem total. Fica clara a redução e/ou inexistência de picos no tempo de execução quanto mais ordenado estiver o vetor. A quantidade de passos é mutável.
 
 
 
@@ -525,7 +616,7 @@ O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a or
 
 ### Selection Sort
 
-* Ordenação por seleção: seleciona o menor item e colocar na primeira posição, seleciona o segundo menor item e colocar na segunda posição, segue estes passos até que reste um único elemento. 
+* Ordenação por seleção: seleciona o menor item e coloca na primeira posição, seleciona o segundo menor item e coloca na segunda posição, segue estes passos até que reste um único elemento. 
 
 * Complexidade em todos os casos: $O(n²)$ 
 
@@ -558,9 +649,17 @@ O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a or
 
 
 
+![](data/selection/stepsselection%20sort_Full%20random.png)
+
+
+
 `Cenário`: _Arranjo em ordem não decrescente_
 
 ![selection sort_non-descending order](data/selection/selection%20sort_non-descending%20order.png)
+
+
+
+![](data/selection/stepsselection%20sort_non-descending%20order.png)
 
 
 
@@ -569,6 +668,10 @@ O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a or
 ![selection sort_non-ascending order](data/selection/selection%20sort_non-ascending%20order.png)
 
 
+
+
+
+![](data/selection/stepsselection%20sort_non-ascending%20order.png)
 
 `Cenário`: _Arranjo 75% ordenado_ 
 
@@ -586,7 +689,13 @@ O melhor cenário para o insertion é um arranjo com ordem parcial tendendo a or
 
 ![comparação selection s5,50,75](data/selection/compara%C3%A7%C3%A3o%20selection%20s5,50,75.png)
 
-O selection sort tem como única vantagem a sua implementação simples. Todos os gráficos possuem praticamente o mesmo tempo de execução nos 6 cenários apresentados, isso se deve ao fato de que antes de fazer qualquer troca, o algoritmo realiza uma busca sequencial( $O(n-i)$ ) para cada posição do vetor, tornando-o ineficiente.
+
+
+![](data/selection/STEPS%20comparac%CC%A7a%CC%83o%20selection%2025,50,75.png)
+
+
+
+O selection sort tem como única vantagem a sua implementação simples. Todos os gráficos possuem praticamente o mesmo tempo de execução nos 6 cenários apresentados, isso se deve ao fato de que antes de fazer qualquer troca, o algoritmo realiza uma busca sequencial( $O(n-i)$ ) para cada posição do vetor, tornando-o ineficiente. A quantidade de passos é sempre a mesma.
 
 
 
@@ -627,9 +736,17 @@ O selection sort tem como única vantagem a sua implementação simples. Todos o
 
 
 
+![](data/bubble/stepsbubble%20sort_Full%20random.png)
+
+
+
 `Cenário`: _Arranjo em ordem não decrescente_ 
 
 ![bubble sort non-descending order](data/bubble/bubble%20sort%20non-descending%20order.png)
+
+
+
+![](data/bubble/stepsbubble%20sort_non-descending%20order.png)
 
 semelhante ao insertion, o bubble opera melhor em arranjos que tendem a ordem total.
 
@@ -639,7 +756,7 @@ semelhante ao insertion, o bubble opera melhor em arranjos que tendem a ordem to
 
 
 
-
+![](data/bubble/stepsbubble%20sort_non-ascending%20order.png)
 
 `Cenário`: _Arranjo 75% ordenado_ 
 
@@ -666,6 +783,10 @@ semelhante ao insertion, o bubble opera melhor em arranjos que tendem a ordem to
 ![comparação bubble 25,50,75](data/bubble/compara%C3%A7%C3%A3o%20bubble%2025,50,75.png)
 
 
+
+![](data/bubble/STEPS%20comparac%CC%A7a%CC%83o%20bubble%2025,50,75.png)
+
+O número de passos é o mesmo para arranjos de ordem parcial.
 
 
 
@@ -711,6 +832,10 @@ semelhante ao insertion, o bubble opera melhor em arranjos que tendem a ordem to
 
 ![shell sort_Full random](data/shell/shell%20sort_Full%20random.png)
 
+![](data/shell/stepsshell%20sort_Full%20random.png)
+
+
+
 O melhor resultado nas análises foi em um arranjo sem ordem total, quando operado em alguma ordem parcial os resultados fogem do "padrão" dos algoritmos de ordenação. 
 
 
@@ -721,11 +846,19 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 
 ![shell sort_non-descending order](data/shell/shell%20sort_non-descending%20order.png)
 
+![](data/shell/stepsshell%20sort_non-descending%20order.png)
+
+pico inesperado.
+
 
 
 `Cenário`: _Arranjo em ordem não crescente_
 
 ![](data/shell/shell%20sort_non-ascending%20order.png)
+
+![](data/shell/stepsshell%20sort_non-ascending%20order.png)
+
+
 
 
 
@@ -751,9 +884,11 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 
 
 
+![](data/shell/STEPS%20comparac%CC%A7a%CC%83o%20shell%2025,%2050,%2075.png)
+
+Vale em comum na amostra de tamanho `8100` 
 
 
-### 
 
 ### Radix Sort
 
@@ -868,6 +1003,10 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 
 
 
+![](data/radix/stepsradix%20sort_Full%20random.png)
+
+O numero de passos irá depender diretamente da quantidade de digitos do maior elemento.
+
 
 
 `Cenário`: _Arranjo em ordem não decrescente_
@@ -878,6 +1017,10 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 
 
 
+
+
+![](data/radix/stepsradix%20sort_non-descending%20order.png)
+
 `Cenário`: _Arranjo 75% ordenado_
 
 
@@ -885,6 +1028,10 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 ![](data/radix/radix%20sort_sorted:%2075%25.png)
 
 
+
+
+
+![](data/radix/stepsradix%20sort_non-ascending%20order.png)
 
 `Cenário`: _Arranjo 50% ordenado_
 
@@ -909,6 +1056,10 @@ O melhor resultado nas análises foi em um arranjo sem ordem total, quando opera
 
 
 ![](data/radix/comparac%CC%A7a%CC%83o%20radix%2025,50,75.png)
+
+![](data/radix/STEPS%20comparac%CC%A7a%CC%83o%20radix%2025,50,75.png)
+
+
 
 A eficiência do radix independe do cenário e do tamanho da amostra, visto que nenhuma medida do tempo de execução alcançou 1 ms.
 
@@ -956,6 +1107,8 @@ A eficiência do radix independe do cenário e do tamanho da amostra, visto que 
 
 
 
+![]()
+
 `Cenário`: _Arranjo em ordem não decrescente_
 
 ![](data/variable/quick%20+%20insertion_non-descending%20order.png)
@@ -1000,7 +1153,9 @@ A eficiência do radix independe do cenário e do tamanho da amostra, visto que 
 
 ![](data/variable/comparac%CC%A7a%CC%83o%20quick+insertion%2025,50,75.png)
 
+![](data/variable/STEPS%20comparac%CC%A7a%CC%83o%20quick+insertion%2025,50,75.png)
 
+Os passos do variante serão praticamente os mesmos do quick visto que a quantidade de passos do insertion em ordens parciais é a mesma( no variante operamos a inserção em pequenos vetores já semi ordenados). 
 
 
 
@@ -1049,6 +1204,12 @@ Pela observação dos gráficos o uso de alguns algoritmos de alto desempenho de
 
   
 
+  ![](data/comparacao%20quadraticos/bubble%20insertion%20selection%20random.png)
+
+O insertion sort opera pior que o selection sort quando não há ordem total. 
+
+
+
 + Shell Sort
 
   Extremamente eficiente em um vetor sem ordem total e apesar da queda de desempenho em arranjos com ordem parcial, pode ser utilizado em diversos cenários.
@@ -1059,7 +1220,23 @@ Pela observação dos gráficos o uso de alguns algoritmos de alto desempenho de
 
   Excelente em **qualquer** cenário.
 
-  
+
+
+### Radix Sort vs Shell Sort vs Quick Sort
+
+Apesar da vantagem do radix em todos os cenários, o alto desempenho do shell para um algoritmo de comparação e inserção é excelente. O quick sort consegue concorrer com o radix se o cenário considerado for o de um arranjo sem ordem total e ocorrência tender ao melhor caso.
+
+No que diz respeito as comparações realizadas, pode-se dizer que o algoritmo mais eficiente é o radix.
+
+
+
+![](data/comparacao%20radix%20shell%20random/radix%20e%20shell%20random.png)
+
+
+
+![](data/comparacao%20quick%20radix%20random/quick%20e%20radix%20random.png)
+
+
 
 ### Quick Sort vs Merge Sort
 
@@ -1070,8 +1247,68 @@ Pela observação dos gráficos o uso de alguns algoritmos de alto desempenho de
 
 
 
-
-
 ### Medições
 
-O método utilizado para executar as análises impossibilitou o uso de amostras grandiosas
+O método utilizado para executar as análises impossibilitou o uso de amostras grandiosas. Uma amostra de tamanho 100.000 poderia passar até 14 horas rodando.
+
+Não houveram coisas estranhas nas medições além de alguns picos decorrentes, provavelmente, do processamento da máquina utilizada.
+
+
+
+### N = 500 Bilhões 
+
+
+
+Algoritmos quadraticos levariam **`500²e+09 segundospara ordenar
+
+
+
+Algoritmos de complexidade $n(logn)$ levariam **`500e+09log500e+09 segundos`** para ordernar
+
+
+
+Não é possível estimar com precisão quanto tempo o Shell sort ordenaria mas seria aproximadamente entre  **`500²e+09 segundos`**    e    **`500e+09log500e+09 segundos`**  
+
+
+
+O Radix sort ordenaria em **`w * 500²e+09 segundos  `** 
+
+
+
+### Quick vs Quick Combo 
+
+![](data/comparacao%20quick%20e%20variable/quick%20e%20var%20random.png)
+
+
+
+
+
+![](data/comparacao%20quick%20e%20variable/quick%20e%20var%20nao%20decrescente.png)
+
+
+
+
+
+![](data/comparacao%20quick%20e%20variable/quick%20e%20var%20nao%20crescente.png)
+
+
+
+
+
+![](data/comparacao%20quick%20e%20variable/quick%20e%20var%2075.png)
+
+
+
+![](data/comparacao%20quick%20e%20variable/quick%20e%20var%2050.png)
+
+
+
+
+
+![](data/comparacao%20quick%20e%20variable/quick%20e%20var%2025.png)
+
+
+
+O Quick combo se mostrou melhor em todos os cenários analisados
+
+![]()

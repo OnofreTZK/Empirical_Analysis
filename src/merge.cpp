@@ -3,122 +3,76 @@
 #include <iostream>
 #include <iterator>
 #include <cstdlib>
+#include <math.h>
 
-void copyiterator( long int * newfirst, long int * newlast, long int * first, long int * last )
-{
-
-    while( first != last  )
-    {
-        *newfirst = *first;
-        //std::cout << *newfirst << ", ";
-
-        newfirst++;
-
-        first++;
+void printV(std::string desc, long int *first, long int *last) {
+    std::cout << desc << " [ ";
+    for( long int *it = first; it < last; it++ ) {
+        std::cout << *it << " ";
     }
-
+    std::cout << "]\n";
 }
 
+void merge(long int *first, long int *half, long int *last, long int &count) {
+    long int tamTotal = std::distance(first, last);
+    long int *newThing = new long int[tamTotal];
 
+    long int *slow = first;
+    long int *fast = half;
 
-void merge( long int * first, long int * last, long int * half, long int &count )
-{
-    int size1 = std::distance( first, half ) + 1;
-    int size2 = std::distance( half + 1, last );
-
-    long int subArray1[size1];
-    long int subArray2[size2];
-    long int mergedArray[std::distance(first, last)];
-
-
-    copyiterator( subArray1, subArray1 + size1, first, half);
-    copyiterator( subArray2, subArray2 + size2, half, last);
-
-    int index1 = 0; // subArray1 index.
-    int index2 = 0; // subArray2 index.
-    int mergedindex = 0; // final array index
-
-    while( mergedindex < std::distance( first, last ) )
-    {
-        if( size1 == 0 and size2 == 0 )
-        {
-            return;
-        }
-        else if( size1 == 0 )
-        {
-            while( index2 < size2 )
-            {
-                mergedArray[mergedindex] = subArray2[index2];
-                mergedindex++;
-                index2++;
+    for(int i = 0; i < tamTotal; i++) {
+        if(slow >= half && fast >= last) {
+            break;
+        } else if(slow == half || fast == last) {
+            if(slow == half) {
+                for( int j = i; j < tamTotal; j++ ) {
+                    newThing[j] = *fast++;
+                }
+                break;
+            } else if(fast == last) {
+                for( int j = i; j < tamTotal; j++ ) {
+                    newThing[j] = *slow++;
+                }
+                break;
             }
-        }
-        else if( size2 == 0 )
-        {
-            while( index1 < size1 )
-            {
-                mergedArray[mergedindex] = subArray1[index1];
-                mergedindex++;
-                index1++;
-            }
-        }
-        else if( subArray1[index1] < subArray2[index2] )
-        {
-            mergedArray[mergedindex] = subArray1[index1];
-            index1++;
-            mergedindex++;
-        }
-        else if( subArray1[index1] > subArray2[index2] )
-        {
-            mergedArray[mergedindex] = subArray2[index2];
-            index2++;
-            mergedindex++;
-        }
-        else if( subArray1[index1] == subArray2[index2] )
-        {
-            mergedArray[mergedindex] = subArray1[index1];
-            index1++;
-            mergedindex++; 
-            mergedArray[mergedindex] = subArray2[index2];
-            index2++;
-            mergedindex++;
-        }
-        else if( index1 == size1 )
-        {
-            while( index2 < size2 )
-            {
-                mergedArray[mergedindex] = subArray2[index2];
-                mergedindex++;
-                index2++;
-            }
-        }
-        else if( index2 == size2 )
-        {
-            while( index1 < size1 )
-            {
-                mergedArray[mergedindex] = subArray1[index1];
-                mergedindex++;
-                index1++;
+        } else {
+            if( *slow < *fast ) {
+                newThing[i] = *slow++;
+            } else {
+                newThing[i] = *fast++;
             }
         }
     }
 
-    copyiterator( first, last, mergedArray, mergedArray + std::distance( first, last ) );
-}
-
-
-void mergesort( long int * first, long int * last, long int &count )
-{
-    if( first == last )
-    {
-        count++; // if
-        return;
+    // passa resultados
+    for(int i = 0; i < tamTotal; i++) {
+        *(first+i) = newThing[i];
     }
 
-    long int * half = first + std::distance( first, last )/2;
-
-    mergesort( first, half, count );
-    mergesort( half + 1, last, count );
-
-    merge( first, last, half, count );
+    delete[] newThing;
 }
+
+void mergesort( long int * first, long int * last, long int &count ) {
+    auto tamanho = std::distance(first, last);
+
+    if( first == last || tamanho <= 1 ) { return; } // vetor vazio
+    printf("------------------------------------------------------------------------------\n");
+    printV("> [mergesort] entire:", first, last);
+
+    // printf("TAMANHO: %li\n", tamanho);
+
+    // divisao elemento central:
+    long int *half = first + int(floor(tamanho/2));
+    // printf("HALF: %li\n\n", *half);
+
+    printV("\t>> [mergesort] 1º half:", first, half);
+    printV("\t>> [mergesort] 2º half:", half, last);
+    // recurssão
+    mergesort(first, half, count);
+    mergesort(half, last, count);
+
+    merge(first, half, last, count);
+}
+
+
+
