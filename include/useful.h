@@ -64,7 +64,7 @@ class DATA
       {
           for( size_t i = 0; i < time_data.size(); i++ )
           {
-              *file << samples_size[i] << " " << count_steps[i] << "\n";
+              *file << samples_size[i] << " " << count_steps[i] << "\n";  
           }
       }
 
