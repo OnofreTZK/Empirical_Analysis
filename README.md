@@ -75,15 +75,15 @@ Sandra Bastos
     + `type_array `
 
 * **Algoritmos**
-* _**Quick Sort**_
-* _**Merge Sort**_
-* _**Insertion Sort**_
-*  **_Selection Sort_**
-*  **_Bubble Sort_**
-* **_Shell Sort_**
-* **_Radix Sort_**
-* _**Quick + Insertion**_
-* **Resultados**
+	* _**Quick Sort**_
+	* _**Merge Sort**_
+	* _**Insertion Sort**_
+	*  **_Selection Sort_**
+	*  **_Bubble Sort_**
+	* **_Shell Sort_**
+	* **_Radix Sort_**
+	* _**Quick + Insertion**_
+	* **Resultados**
   * **Considerações Gerais**
   * **Cenários Apropriados**
   * **Radix Sort vs Shell Sort vs Quick Sort**
