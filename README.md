@@ -83,7 +83,7 @@ Sandra Bastos
 	* **_Shell Sort_**
 	* **_Radix Sort_**
 	* _**Quick + Insertion**_
-	* **Resultados**
+* **Resultados**
   * **Considerações Gerais**
   * **Cenários Apropriados**
   * **Radix Sort vs Shell Sort vs Quick Sort**
